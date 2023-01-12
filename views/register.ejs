@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs"); %> 
+<body>
+    <%- include("./partials/nav.ejs"); %> 
+    
+
+    <div class="container-fluid bg-danger" style="height: 600px">
+        <div class="row ">
+            <div class="col-sm-6 bg-warning" style="height: 600px">
+                
+            </div>
+            <div class="col-sm-6 bg-white">
+                <div class="container d-flex align-items-center justify-content-center" style="height: 600px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card mx-5">
+                              <div class="card-body">
+                                <h4 class="card-title text-center my-4">Register</h4>
+                                <div class="container">
+                                    <div class="row text-left">
+                                        <div class="col text-left">
+                                            <form action="/register" method="post">
+                                                
+                                               
+                                                <div class="row">
+                                                    <div class="col-sm-12 mb-3">
+                                                        <label for="" class="form-label text-left">Username<span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="text" name="username">
+                                                    </div>
+                                                    <div class="col-sm-12 mb-3">
+                                                        <label for="" class="form-label text-left">Phone Number<span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="tel" name="phonenum">
+                                                    </div>
+                                                    <div class="col-sm-12 mb-3">
+                                                        <label for="" class="form-label text-left">Email<span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="email" name="email">
+                                                    </div>
+                                                
+                                                    <div class="col-sm-12 mb-3">
+                                                        <label for="" class="form-label">Password<span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="password" name="password">
+                                                    </div>
+                                                
+                                                
+                                                    <div class="col-sm-12 mb-3">
+                                                        <button type="submit" class="btn btn-warning w-100">Register</button>
+                                                    </div>
+
+                                                    <div class="col-sm-12 mb-3">
+                                                        <p class="text-center">Already have an account? <a href="/login">Login.</a></p>
+                                                    </div>
+                                                </div>
+                                    
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- <%- //include("./partials/footer.ejs"); %>  -->
+</body>
+</html>
