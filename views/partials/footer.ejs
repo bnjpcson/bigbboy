@@ -55,26 +55,40 @@
 </div>
 
 <footer class="container-fluid text-center bg-dark text-white p-5">
-    <div class="row my-3">
-        <div class="col">
-        <a href="#" class="btn btn-light border"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+
+    <% let d = new Date(); %>
+    <% let year = d.getFullYear(); %>
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 text-start border-end align-middle">
+                        <img class="img-fluid w-100 align-middle" src="/images/bigbboy/bigbboy1.png" alt="">
+                    </div>
+                    <div class="col-7 text-start ms-3 pt-1">
+                        &copy Copyright <%=year%>. All Rights Reserved.
+                        Developed by  <span class="primary-color">EBJ Tech Solutions</span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mt-3">
+            <div class="container text-center">
+                <div class="row">
+                    <span>VISIT US ON SOCIAL NETWORKS</span>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a href="#"><i class="fa fa-facebook icon px-2"></i></a>
+                        <a href="#"><i class="fa fa-twitter icon px-2"></i></a>
+                        <a href="#"><i class="fa fa-linkedin icon px-2"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
-    <div class="row my-4">
-        <div class="col">
-            <a href="#"><i class="fa fa-facebook icon px-2"></i></a>
-            <a href="#"><i class="fa fa-twitter icon px-2"></i></a>
-            <a href="#"><i class="fa fa-linkedin icon px-2"></i></a>
-        </div>
-    </div>
-    <% let d = new Date(); %>
-    <% let year = d.getFullYear(); %>
-    <div class="row my-3">
-        <div class="col">
-            &copy Copyright <%=year%>
-        </div>
-    </div>
     
 </footer>
 

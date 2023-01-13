@@ -15,5 +15,8 @@ router.get("/contact", contactController.getContact);
 router.get("/services", servicesController.getServices);
 router.get("/login", loginController.getLogin);
 router.get("/register", registerController.getRegister);
+router.get("/sample", (req, res)=>{
+    res.render("sample", {title: "sample"});
+});
 
 module.exports = router;
