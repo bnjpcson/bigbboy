@@ -2,19 +2,66 @@
 <html lang="en">
     <%- include("./partials/head.ejs"); %> 
 <body>
-    <%- include("./partials/nav.ejs"); %> 
+    <%- //include("./partials/nav.ejs"); %> 
     
+    <style>
+        /* login form */
+        .account-block {
+            padding: 0;
+            background-image: url("/images/bigbboy/login_pic.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+            position: relative;
+            opacity: 70%;
+        }
+        .account-block .overlay {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .account-block .account-testimonial {
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+        }
 
-    <div class="container-fluid bg-danger" style="height: 600px">
+        /* .text-theme {
+            color: #5369f8 !important;
+        }
+
+        .btn-theme {
+            background-color: #5369f8;
+            border-color: #5369f8;
+            color: #fff;
+        } */
+        /* login form */
+    </style>
+
+    <div class="container-fluid">
         <div class="row ">
-            <div class="col-sm-6 bg-secondary" style="height: 600px">
+            <div class="col-sm-6 p-0">
+                <div class="account-block ">
                 
+                </div>
             </div>
+            
             <div class="col-sm-6 bg-white">
-                <div class="container d-flex align-items-center justify-content-center" style="height: 600px">
+                <div class="container d-flex align-items-center justify-content-center">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card mx-5">
+                        <div class="col-sm-12 p-5 my-5">
+                            <div class="card my-5">
                               <div class="card-body">
                                 <h4 class="card-title text-center my-4">Login</h4>
                                 <div class="container">
@@ -35,12 +82,13 @@
                                                     </div>
                                                 
                                                 
+                                                    
                                                     <div class="col-sm-12 mb-3">
-                                                        <button type="submit" class="btn btn-warning w-100">Login</button>
+                                                        <button type="submit" class="button w-100 rounded-3">Login</button>
                                                     </div>
 
                                                     <div class="col-sm-12 mb-3">
-                                                        <p class="text-center">Don't have an account? <a href="/register">Register.</a></p>
+                                                        <p class="text-center">Don't have an account? <a class="primary-color active" href="/register">Register.</a></p>
                                                     </div>
                                                 </div>
                                     

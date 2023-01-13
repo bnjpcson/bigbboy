@@ -48,6 +48,8 @@ a{
     padding: 10px;
     background-color: #F67211;
     color: white !important;
+    border: 0;
+
 }
 
 .service-title{
@@ -78,3 +80,10 @@ a{
     color: white;
     border-radius: 6px;
 }
+
+.form-control{
+    border: 1px solid #F67211;
+}
+
+
+
