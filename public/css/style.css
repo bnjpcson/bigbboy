@@ -21,20 +21,20 @@ a{
 }
 
 .page-title{
-    font-size: 60px;
+    font-size: 30px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .page-hr{
-    border: 2px solid #ff6a00;
-    width: 20%;
+    border: 2px solid #F67211;
+    width: 15%;
     margin: auto;
 }
 
 .product-title{
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     color: black;
 }
 
@@ -65,25 +65,49 @@ a{
 }
 
 .contact-title{
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     color: #F67211;
 }
 
 .contact-message{
-    font-size: 20px;
+    font-size: 14px;
     color: #828282;
 }
 
 .btnContact{
-    background-color: #282828;
+    background-color: #161515;
     color: white;
+    font-size: 15px;
     border-radius: 6px;
 }
 
 .form-control{
-    border: 1px solid #F67211;
+    border: 0.5px solid #F67211;
 }
 
+/* .text-center{
+    font-size: 12px;
+    font-weight: bold;
+    color: #F67211;
+} */
 
+    /* .carousel-inner {
+      display: flex;
+    }
+    .carousel-item {
+      margin-right: 0;
+      flex: 0 0 33.333333%;
+      display: block;
+    } */
 
+    .text-center {
+        text-align: center !important;
+    }
+    .pt-0 {
+        padding-top: 0 !important;
+    }
+    .p-4 {
+        padding: 1.5rem !important;
+    }
+   
