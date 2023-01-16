@@ -4,20 +4,86 @@
 <body>
     <%- include("./partials/nav.ejs"); %> 
     
+    <style>
+        /* login form */
+        .account-block {
+            padding: 0;
+            background-image: url("/images/bigbboy/login_pic.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+            position: relative;
+            opacity: 70%;
+        }
+        .account-block .overlay {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .account-block .account-testimonial {
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+        }
 
-    <div class="container-fluid bg-danger" style="height: 600px">
+        /* .text-theme {
+            color: #5369f8 !important;
+        }
+
+        .btn-theme {
+            background-color: #5369f8;
+            border-color: #5369f8;
+            color: #fff;
+        } */
+        /* login form */
+    </style>
+
+    <div class="container-fluid">
         <div class="row ">
-            <div class="col-sm-6 bg-warning" style="height: 600px">
+            <div class="col-sm-6 p-0">
+                <div class="account-block ">
                 
+                </div>
             </div>
+            
             <div class="col-sm-6 bg-white">
-                <div class="container d-flex align-items-center justify-content-center" style="height: 600px">
+                <div class="container d-flex align-items-center justify-content-center">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card mx-5">
+                        <div class="col-sm-12 p-5">
+                            <div class="card">
                               <div class="card-body">
                                 <h4 class="card-title text-center my-4">Register</h4>
                                 <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <% if (success != "") { %>
+                                                <div class="alert alert-success text-center" role="alert">
+                                                    <p class="mb-0 text-center"><%= success %> </p>
+                                                </div>
+                                            <% } %>
+                                            <% if (error != "") { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <ul>
+                                                        <% error.forEach(element => { %>
+                                                        <li><%= element %></li>
+                                                        <% }) %>
+                                                    </ul>
+                                                    
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
                                     <div class="row text-left">
                                         <div class="col text-left">
                                             <form action="/register" method="post">
@@ -25,13 +91,20 @@
                                                
                                                 <div class="row">
                                                     <div class="col-sm-12 mb-3">
+                                                        <label for="" class="form-label text-left">Name<span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="text" name="name">
+                                                    </div>
+
+                                                    <div class="col-sm-12 mb-3">
                                                         <label for="" class="form-label text-left">Username<span class="text-danger">*</span></label>
                                                         <input class="form-control" type="text" name="username">
                                                     </div>
+
                                                     <div class="col-sm-12 mb-3">
                                                         <label for="" class="form-label text-left">Phone Number<span class="text-danger">*</span></label>
                                                         <input class="form-control" type="tel" name="phonenum">
                                                     </div>
+
                                                     <div class="col-sm-12 mb-3">
                                                         <label for="" class="form-label text-left">Email<span class="text-danger">*</span></label>
                                                         <input class="form-control" type="email" name="email">
@@ -43,12 +116,13 @@
                                                     </div>
                                                 
                                                 
+                                                    
                                                     <div class="col-sm-12 mb-3">
-                                                        <button type="submit" class="btn btn-warning w-100">Register</button>
+                                                        <button type="submit" class="button w-100 rounded-3">Register</button>
                                                     </div>
 
                                                     <div class="col-sm-12 mb-3">
-                                                        <p class="text-center">Already have an account? <a href="/login">Login.</a></p>
+                                                        <p class="text-center">Already have an account? <a class="primary-color active" href="/login">Login.</a></p>
                                                     </div>
                                                 </div>
                                     
