@@ -2,7 +2,7 @@
 <html lang="en">
     <%- include("./partials/head.ejs"); %> 
 <body>
-    <%- //include("./partials/nav.ejs"); %> 
+    <%- include("./partials/nav.ejs"); %> 
     
     <style>
         /* login form */
@@ -60,11 +60,30 @@
             <div class="col-sm-6 bg-white">
                 <div class="container d-flex align-items-center justify-content-center">
                     <div class="row">
-                        <div class="col-sm-12 p-5 my-5">
+                        <div class="col-sm-12 p-5">
                             <div class="card my-5">
                               <div class="card-body">
                                 <h4 class="card-title text-center my-4">Login</h4>
                                 <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <% if (success != "") { %>
+                                                <div class="alert alert-success text-center" role="alert">
+                                                    <p class="mb-0 text-center"><%= success %> </p>
+                                                </div>
+                                            <% } %>
+                                            <% if (error != "") { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <ul>
+                                                        <% error.forEach(element => { %>
+                                                        <li><%= element %></li>
+                                                        <% }) %>
+                                                    </ul>
+                                                    
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
                                     <div class="row text-left">
                                         <div class="col text-left">
                                             <form action="/login" method="post">
