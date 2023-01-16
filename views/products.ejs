@@ -5,16 +5,36 @@
     <%- include("./partials/nav.ejs"); %> 
     
 
-    <div class="container-fluid bg-danger" style="height: 250px">
+    <style>
+        .service_hi{
+            background-image: url("/images/bigbboy/bg2.png");
+
+            background-position: center;
+            background-size: cover;
+        }
+       
+    </style>
+
+    <div class="container-fluid service_hi" style="height: 250px">     
+        
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Products</h1>
+                <h1 class="ser-title">Products</h1>
             </div>
         </div>
     </div>
 
      <!-- Section Products-->
  <section class="py-5">
+
+    <div class="row">
+        <div class="col">
+            <hr class="page-hr mb-2">
+            <h1 class="page-title">Products</h1>
+            <hr class="page-hr mt-2">
+        </div>
+    </div>
+
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5">
@@ -249,12 +269,7 @@
   </div>
 </div> 
 
-    <div class="container bg-warning my-5" style="height: 500px">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">Contact</h1>
-            </div>
-        </div>
+  
     </div>
 
     <%- include("./partials/footer.ejs"); %> 
