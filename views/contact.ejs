@@ -5,33 +5,211 @@
     <%- include("./partials/nav.ejs"); %> 
     
 
-    <div class="container-fluid bg-danger" style="height: 250px">
+    <style>
+        .service_hi{
+            background-image: url("/images/bigbboy/bg2.png");
+
+            background-position: center;
+            background-size: cover;
+        }
+       
+    </style>
+
+    <div class="container-fluid service_hi" style="height: 250px">     
+        
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Contact</h1>
+                <h1 class="ser-title">Contacts</h1>
             </div>
         </div>
     </div>
 
-    <div class="container bg-warning my-5" style="height: 500px">
+    <div class="container-fluid my-5 p-5" style="background-color: #E2E2E2;">
+       
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Show Contacts</h1>
+
+                <div class="row">
+                    <div class="col">
+                        <hr class="page-hr mb-2">
+                        <h1 class="page-title">Contact Us</h1>
+                        <hr class="page-hr mt-2">
+                    </div>
+                </div>
+
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">      
+                        
+                        <div class="col mb-5">
+                            <div class="card h-20">
+                                <div class="div mx-auto text-center p-3">
+                                    <i class="fa fa-map-marker" aria-hidden="true" style="font-size:80px;color:#F67211;"></i>
+                                </div>
+                                    <div class="card-body p-1" style="height: 8rem;">
+                                        <div class="text-center">
+                                            <span class="con-title p-2">Location</span>
+                                                <br>
+                                            <p class="con-desc p-2" >Rizal Street Poblacion District IV, Pozorrubio, Pangasinan</p> 
+                                        </div>
+                                     </div>
+                        </div>
+                        </div>
+
+                        <div class="col mb-5">
+                            <div class="card h-20">
+                                <div class="div mx-auto text-center p-3">
+                                    <i class="fa fa-phone" aria-hidden="true" style="font-size:80px;color:#F67211;"></i>
+                                </div>
+                                    <div class="card-body p-1" style="height: 8rem;">
+                                        <div class="text-center">
+                                            <span class="con-title p-2">Phone Number</span>
+                                                <br>
+                                            <p class="con-desc p-2" >0912-345-6789</p> 
+                                        </div>
+                                     </div>
+                        </div>
+                        </div>
+
+                        <div class="col mb-5">
+                            <div class="card h-20">
+                                <div class="div mx-auto text-center p-3">
+                                  <i class="fa fa-envelope" aria-hidden="true" style="font-size:80px;color:#F67211;"></i>
+                                </div>
+                                    <div class="card-body p-1" style="height: 8rem;">
+                                        <div class="text-center">
+                                            <span class="con-title p-2">Email Address</span>
+                                                <br>
+                                            <p class="con-desc p-2" >Bigbboy@gmail.com</p> 
+                                        </div>
+                                     </div>
+                        </div>
+                        </div>
+                        
+                        <div class="col mb-5">
+                            <div class="card h-20">
+                                <div class="div mx-auto text-center p-3">
+                                    <i class="fa fa-clock-o" aria-hidden="true" style="font-size:80px;color:#F67211;"></i>
+                                </div>
+                                    <div class="card-body p-1" style="height: 8rem;">
+                                        <div class="text-center">
+                                            <span class="con-title p-2">Open Hours</span>
+                                                <br>
+                                            <p class="con-desc p-2" >6:00 AM - 6:00 PM</p> 
+                                        </div>
+                                     </div>
+                        </div>
+                        </div>
+
+                        
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    </div>
+
+
+    <div class="bg-cover py-20" 
+    style="background-image: url('images/bigbboy/bg4.jpg')">
+<div class="row mx-1">
+    <div class="col-sm-4 bg-white mx-auto my-4 p-4">
+        <form action="" method="post">
+            <div class="row my-1">
+                <div class="col-sm-12 text-center">
+                    <p class="contact-title">GET IN TOUCH</p>
+                    <hr class="page-hr"><br>
+                    <p class="contact-message">Any questions? Just write us a message.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label" for="">Name</label>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label" for="">Email</label>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label" for="">Subject</label>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label" for="">Message</label>
+                    <textarea class="form-control" name="message" id="" cols="30" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3 text-center">
+                <div>
+                    <button type="submit" class="btnContact">SEND MESSAGE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-7 mx-auto my-4 p-4">
+        <div class="mapouter">
+            <div class="gmap_canvas">
+                <iframe width="650" height="800" id="gmap_canvas" src="https://maps.google.com/maps?q=Rizal%20Street%20Poblacion%20District%20IV,%20Pozorrubio,%20Pangasinan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                </iframe><a href="https://123movies-to.org"></a>
+                <br>
+                <style>.mapouter{position:relative;text-align:right;height:500px;width:400px;}</style>
+                <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+                <style>.gmap_canvas {overflow:hidden;background:none!important;height:560px;width:670px;}
+                </style>
+            </div>
+           
+    </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center bg-dark text-white p-4">
+
+<% let d = new Date(); %>
+<% let year = d.getFullYear(); %>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 text-start border-end align-middle">
+                    <img class="img-fluid w-100 align-middle" src="/images/bigbboy/bigbboy1.png" alt="">
+                </div>
+                <div class="col-7 text-start ms-3 pt-1">
+                    &copy Copyright <%=year%>. All Rights Reserved.
+                    Developed by  <span class="primary-color">EBJ Tech Solutions</span> 
+                </div>
             </div>
         </div>
     </div>
-
-    
-    
-    <div class="container bg-warning my-5" style="height: 500px">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">Contact</h1>
+    <div class="col-sm-6">
+        <div class="container text-center">
+            <div class="row">
+                <span>VISIT US ON SOCIAL NETWORKS</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="#"><i class="fa fa-facebook icon px-2"></i></a>
+                    <a href="#"><i class="fa fa-twitter icon px-2"></i></a>
+                    <a href="#"><i class="fa fa-linkedin icon px-2"></i></a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <%- include("./partials/footer.ejs"); %> 
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
