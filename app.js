@@ -19,7 +19,10 @@ app.use(cookie("abcd"));
 app.use(session({
     secret: "abcd",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session is stored 1 day
+    }
 }));
 
 app.use(flash());

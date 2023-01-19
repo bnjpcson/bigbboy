@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %> 
+
+<script>
+    $(document).ready(function() {
+        $('#usersTable').DataTable();
+        $('#adminTable').DataTable();
+    });
+        
+   
+</script>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar.ejs") %> 
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/topbar.ejs") %> 
+
+                <!-- Begin Page Content -->
+                <div class="container my-5">
+
+                    
+
+                    <!-- Page Heading -->
+
+                    <div class="container border-warning border-start border-1 mb-3">
+                        <h1 class="h3">Manage Accounts</h1>
+                    </div>
+                    
+                    
+
+                    <!-- DataTales Users -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Users Table</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="usersTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if (users != "") { %>
+                                       <% users.forEach(element => { %>
+                                        <tr>
+                                            <td><%= element.id %></td>
+                                            <td><%= element.name %></td>
+                                            <td><%= element.username %></td>
+                                            <td><%= element.email %></td>
+                                            <td><%= element.phonenum %></td>
+                                            <td>
+                                                <a class="link" href="#"><i class="fas fa-edit fa-fw text-warning"></i></a>
+                                                <a class="link" href="#"><i class="fas fa-trash fa-fw text-danger"></i></a>
+                                            </td>
+
+
+
+                                        </tr>
+                                       <% }) %>
+                                    <% } %> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DataTales Admin -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title">Admins Table</h4>
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-success">Add Admin</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="adminTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if (admins != "") { %>
+                                       <% admins.forEach(element => { %>
+                                        <tr>
+                                            <td><%= element.admin_id %></td>
+                                            <td><%= element.name %></td>
+                                            <td><%= element.username %></td>
+                                            <td><%= element.email %></td>
+                                            <td><%= element.phonenum %></td>
+                                            <td>
+                                                <a class="link" href="#"><i class="fas fa-edit fa-fw text-warning"></i></a>
+                                                <a class="link" href="#"><i class="fas fa-trash fa-fw text-danger"></i></a>
+                                            </td>
+
+
+
+                                        </tr>
+                                       <% }) %>
+                                    <% } %> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+
+            
+
+            
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer.ejs") %> 
+            
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scripts.ejs") %> 
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function(){
+
+       
+
+        function loadData(){
+            $.ajax({
+                url:"http://localhost:5000/admin/accounts-user",
+                method: "POST",
+                data:{action:"fetch"},
+                dataType: "JSON",
+                success: function(data){
+                    var html = "";
+
+                    if(data.data.length > 0){
+
+                        console.log(data.data.length);
+                        for (let index = 0; index < data.data.length; index++) {
+
+                            html = `
+                                <tr>
+                                    <td>`+data.data[index].id+`</td>
+                                    <td>`+data.data[index].name+`</td>
+                                    <td>`+data.data[index].username+`</td>
+                                    <td>`+data.data[index].email+`</td>
+                                    <td>`+data.data[index].phonenum+`</td>
+                                    <td>Actions</td>
+                                </tr>
+                            `;
+                        }
+
+                        $("#dataTable tbody").html(html);
+                    }
+                }
+            });
+        }
+    });
+</script>

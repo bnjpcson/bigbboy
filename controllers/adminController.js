@@ -5,10 +5,18 @@ const saltRounds = 10;
 
 const getAdmin = (req, res)=>{
 
+    let credentials = {
+        id : req.session.id,
+        name : req.session.id,
+        username : req.session.username,
+        usertype: req.session.usertype,
+        email : req.session.email,
+    };
+
     if(req.session.usertype == "USER"){
         res.redirect("/");
     }else if(req.session.usertype == "ADMIN"){
-        res.render("admin/index", {title: "Bigbboy | Admin"});
+        res.render("admin/index", {title: "Dashboard | Admin", credentials});
     }else{
         res.redirect("/admin/login")
     }
@@ -47,7 +55,7 @@ const postAdminLogin = (req, res)=>{
     if(error){
         res.redirect("login");
     }else{
-        const sql = "SELECT * FROM `users` WHERE username = ? OR email = ?";
+        const sql = "SELECT * FROM `admins` WHERE username = ? OR email = ?";
         dbcon.query(sql,[username, username], (err, result)=>{
             if(err){
                 console.log(err.message);
@@ -58,7 +66,6 @@ const postAdminLogin = (req, res)=>{
                     const name = result[0].name;
                     const username = result[0].username;
                     const hash = result[0].password;
-                    const usertype = result[0].usertype;
                     const email = result[0].email;
 
     
@@ -73,7 +80,7 @@ const postAdminLogin = (req, res)=>{
                                 req.session.id = id;
                                 req.session.name = name;
                                 req.session.username = username;
-                                req.session.usertype = usertype;
+                                req.session.usertype = "ADMIN";
                                 req.session.email = email;
 
     
