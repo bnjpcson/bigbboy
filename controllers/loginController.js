@@ -1,5 +1,6 @@
 const dbcon = require('../db/conn.js');
 const bcrypt = require('bcrypt');
+const mysql = require('mysql');
 const randtoken = require('rand-token');
 const saltRounds = 10;
 
@@ -48,7 +49,6 @@ const postLogin = (req, res)=>{
                     const name = result[0].name;
                     const username = result[0].username;
                     const hash = result[0].password;
-                    const usertype = result[0].usertype;
                     const email = result[0].email;
 
     
@@ -63,7 +63,7 @@ const postLogin = (req, res)=>{
                                 req.session.id = id;
                                 req.session.name = name;
                                 req.session.username = username;
-                                req.session.usertype = usertype;
+                                req.session.usertype = "USER";
                                 req.session.email = email;
 
     

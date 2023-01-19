@@ -1,0 +1,156 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <img class="ms-3 img-fluid w-50"src="/images/bigbboy/bigbboy2.png" alt="Logo" id="logo">
+        <img class="img-fluid w-50"  src="/images/bigbboy/bigbboy1.png" alt="Logo" id="logo">
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item
+    <% if (title == "Dashboard | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+
+    <!-- Nav Item - Orders -->
+    <li class="nav-item
+    <% if (title == "Orders | Admin") { %>
+        active
+    <% } %>
+    ">
+
+        <a class="nav-link collapsed" href="/admin/orders">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>Orders</span>
+        </a>
+
+    </li>
+
+    
+
+    <!-- Nav Item - Sales Report -->
+    <li class="nav-item
+    <% if (title == "Transactions | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/transactions">
+            <i class="fas fa-fw fa-file-invoice"></i>
+            <span>Transactions</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Sales Report -->
+    <li class="nav-item
+    <% if (title == "Sales Report | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/sales">
+            <i class="fas fa-fw fa-line-chart"></i>
+            <span>Sales Report</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Items -->
+    <li class="nav-item
+    <% if (title == "Items | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/items">
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Items</span>
+        </a>
+    </li>
+
+    
+    <!-- Nav Item - Suppliers -->
+    <li class="nav-item
+    <% if (title == "Suppliers | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/suppliers">
+            <i class="fas fa-fw fa-box-open"></i>
+            <span>Suppliers</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Categories -->
+    <li class="nav-item
+    <% if (title == "Categories | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/categories">
+            <i class="fas fa-fw fa-boxes"></i>
+            <span>Categories</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Users -->
+    <li class="nav-item
+    <% if (title == "Manage Accounts | Admin") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/admin/accounts">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Manage Accounts</span>
+        </a>
+    </li>
+
+
+
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <!-- <div class="sidebar-heading">
+        Manage My Website
+    </div> -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- <li class="nav-item
+    <% //if (title == "Pages | Admin") { %>
+        active
+    <% //} %>
+    ">
+        <a class="nav-link collapsed" href="/admin/homepage" data-toggle="collapse" data-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/homepage">Home Page</a>
+                <a class="collapse-item" href="#">Products Page</a>
+                <a class="collapse-item" href="#">Services Page</a>
+                <a class="collapse-item" href="#">Contacts Page</a>
+            </div>
+        </div>
+    </li> -->
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+</ul>
+<!-- End of Sidebar -->

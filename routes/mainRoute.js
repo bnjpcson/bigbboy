@@ -7,6 +7,16 @@ const servicesController = require('../controllers/servicesController.js');
 const loginController = require('../controllers/loginController.js');
 const registerController = require('../controllers/registerController.js');
 const adminController = require('../controllers/adminController.js');
+const orderController = require('../controllers/orderController.js');
+const transactionsController = require('../controllers/transactionsController.js');
+const salesController = require('../controllers/salesController.js');
+const accountController = require('../controllers/accountController.js');
+const itemController = require('../controllers/itemController.js');
+const pageController = require('../controllers/pageController.js');
+
+
+
+
 
 
 
@@ -28,6 +38,20 @@ router.post("/admin/login", adminController.postAdminLogin);
 
 
 router.get("/admin", adminController.getAdmin);
+
+router.get("/admin/orders", orderController.getOrder);
+
+router.get("/admin/transactions", transactionsController.getTransactions);
+router.get("/admin/sales", salesController.getSales);
+router.get("/admin/accounts", accountController.getAccounts);
+router.get("/admin/accounts-user", accountController.getAccountsUser);
+
+router.get("/admin/items", itemController.getItem);
+router.get("/admin/homepage", pageController.getHomePage);
+
+
+
+
 router.get("/logout", (req, res)=>{
     req.session.destroy();
     console.log(req.session , "User logged out!");

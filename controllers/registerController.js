@@ -75,9 +75,9 @@ const postRegister = (req, res)=>{
                         if(err){
                             console.log(err.message);
                         }else{
-                            const sql = "INSERT INTO users (name, username, email, phonenum, usertype, password) VALUES (?,?,?,?,?,?)";
+                            const sql = "INSERT INTO users (name, username, email, phonenum, password) VALUES (?,?,?,?,?)";
                             
-                            dbcon.query(sql,[name, username, email, phonenum, "USER", hash], (err)=>{
+                            dbcon.query(sql,[name, username, email, phonenum, hash], (err)=>{
                                 if(err){
                                     console.log(err.message);
                                 }else{
