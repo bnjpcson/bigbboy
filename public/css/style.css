@@ -174,4 +174,18 @@ a{
         color: black;
     }
 
-    
+    .page-hr2{
+        border: 2px solid #F67211;
+        width: 95%;
+        margin: auto;
+    }
+
+    .cart-title{
+        position: absolute;
+        left: 90px;
+        top: 35px;
+
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+    }
