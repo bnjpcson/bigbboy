@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2023 at 08:39 AM
+-- Generation Time: Jan 31, 2023 at 10:38 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -252,6 +252,47 @@ INSERT INTO `mvision` (`id`, `title`, `description`, `created_at`, `updated_at`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `userOrders_id` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `prod_id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `prod_name` varchar(255) NOT NULL,
+  `prod_price` decimal(18,2) NOT NULL,
+  `prod_srp` decimal(18,2) NOT NULL,
+  `prod_desc` varchar(255) NOT NULL,
+  `imgpath` varchar(255) NOT NULL,
+  `qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`) VALUES
+(1, 2, 'Original Honda TMX Clutch Lining', '468.00', '600.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At nisi obcaecati voluptatem dolore nesciunt, laboriosam ea debitis ad laudantium. Quisquam, quasi omnis. Ex doloremque dolores repudiandae voluptatibus, quidem eos laboriosam.', 'Original Honda TMX Clutch Lining_1675083033502.jpg', 10),
+(2, 1, 'Break Pads', '410.00', '500.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, praesentium autem hic amet voluptatum eos, asperiores quo voluptates officiis temporibus, esse assumenda corporis fugit architecto vitae reiciendis laborum odio quibusdam.', 'Brake Pads_1675087042421.webp', 5),
+(6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 10),
+(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 15),
+(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 15);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
@@ -279,8 +320,31 @@ INSERT INTO `services` (`id`, `icon`, `title`, `description`, `created_at`, `upd
 --
 
 CREATE TABLE `suppliers` (
-  `id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
   `supplier_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`supplier_id`, `supplier_name`) VALUES
+(1, 'AAA'),
+(2, 'BBB');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userorders`
+--
+
+CREATE TABLE `userorders` (
+  `userOrders_id` int(11) NOT NULL,
+  `user_id` int(20) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `totalprice` decimal(18,2) NOT NULL,
+  `checkout` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -290,7 +354,7 @@ CREATE TABLE `suppliers` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(20) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -302,10 +366,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `phonenum`, `password`) VALUES
-(4, 'Benjie Pecson', 'bnjpcson', 'benjiepecson1@gmail.com', '09123456789', '$2b$10$R3Be.QHtE6Cpl/LRui7sJehJ8KVM2wVoctS2kZkyLamPko0OTT/fK'),
+INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `phonenum`, `password`) VALUES
+(4, 'Benjie Pecson', 'bnjpcson', 'bnjpcson@example.com', '09123456789', '$2b$10$R3Be.QHtE6Cpl/LRui7sJehJ8KVM2wVoctS2kZkyLamPko0OTT/fK'),
 (5, 'John Doe', 'admin', 'johndoe@example.com', '09123456789', '$2b$10$e6miw6pFTn1KgKmrxoszMe.9h3vxQ9K2jsOSm2jb0l2EDecQxqSeq'),
-(6, 'asd', 'asd', 'asd@example.com', 'asd', '$2b$10$.q3COO.7SKNRSgmHOL7wZ.SIwhOYhV3JDMDZaX/xC4OXGKQZsPow2');
+(6, 'asd', 'asd', 'asd@example.com', 'asd', '$2b$10$.q3COO.7SKNRSgmHOL7wZ.SIwhOYhV3JDMDZaX/xC4OXGKQZsPow2'),
+(7, 'Tim Mc Key', 'timmckey', 'timmckey@gmail.com', '09123456789', '$2b$10$wTH4Zina4RqydNkOox9JleJM1nFJG.bbYrrvA7bxF2HZfI2UfZtlm'),
+(8, 'Juana Change', 'juana', 'juanachange@yahoo.com', '09123456789', '$2b$10$0q7DjzOLtgq0D7GHOiBDq.wXaVt5YoujEbpwi5hiBdg1XYyyKz4WG'),
+(11, 'Guest', 'Guest', 'guest@example.com', '09123456789', '$2b$10$BQNjap33KrwtFmnfKSVG0..BkrmLwU8MGjmchm5JRSSLV./HB2Spy');
 
 --
 -- Indexes for dumped tables
@@ -372,6 +439,20 @@ ALTER TABLE `mvision`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `userOrders_id` (`userOrders_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`prod_id`),
+  ADD KEY `supplier_id` (`supplier_id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -381,13 +462,21 @@ ALTER TABLE `services`
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`supplier_id`);
+
+--
+-- Indexes for table `userorders`
+--
+ALTER TABLE `userorders`
+  ADD PRIMARY KEY (`userOrders_id`),
+  ADD KEY `userorders_ibfk_1` (`prod_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -403,7 +492,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `carousels`
@@ -454,6 +543,18 @@ ALTER TABLE `mvision`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
@@ -463,13 +564,42 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `userorders`
+--
+ALTER TABLE `userorders`
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userOrders_id`) REFERENCES `userorders` (`userOrders_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`);
+
+--
+-- Constraints for table `userorders`
+--
+ALTER TABLE `userorders`
+  ADD CONSTRAINT `userorders_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `products` (`prod_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userorders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
