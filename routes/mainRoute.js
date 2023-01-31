@@ -11,8 +11,10 @@ const orderController = require('../controllers/orderController.js');
 const transactionsController = require('../controllers/transactionsController.js');
 const salesController = require('../controllers/salesController.js');
 const accountController = require('../controllers/accountController.js');
-const itemController = require('../controllers/itemController.js');
-const pageController = require('../controllers/pageController.js');
+const productController = require('../controllers/productController.js');
+const suppliersController = require('../controllers/suppliersController.js');
+const viewController = require('../controllers/viewController.js');
+
 
 
 
@@ -22,7 +24,10 @@ const pageController = require('../controllers/pageController.js');
 
 
 router.get("/", homeController.getHome);
-router.get("/products", productsController.getProducts);
+router.get("/products", productController.getProducts);
+router.get("/view-product/:prod_id", viewController.getProduct);
+
+
 router.get("/contact", contactController.getContact);
 router.get("/services", servicesController.getServices);
 
@@ -37,17 +42,51 @@ router.get("/admin/login", adminController.getAdminLogin);
 router.post("/admin/login", adminController.postAdminLogin);
 
 
+//dashboard
 router.get("/admin", adminController.getAdmin);
 
+//orders
 router.get("/admin/orders", orderController.getOrder);
 
-router.get("/admin/transactions", transactionsController.getTransactions);
-router.get("/admin/sales", salesController.getSales);
-router.get("/admin/accounts", accountController.getAccounts);
-router.get("/admin/accounts-user", accountController.getAccountsUser);
 
-router.get("/admin/items", itemController.getItem);
-router.get("/admin/homepage", pageController.getHomePage);
+//transactions
+router.get("/admin/transactions", transactionsController.getTransactions);
+
+//sales report
+router.get("/admin/sales", salesController.getSales);
+
+
+
+
+//suppliers
+router.get("/admin/suppliers", suppliersController.getSuppliers);
+router.post("/admin/suppliers/add-supplier", suppliersController.postAddSupplier);
+router.get("/admin/suppliers/:op/:id", suppliersController.getSuppliers);
+router.post("/admin/suppliers/edit-supplier/", suppliersController.postEditSupplier);
+router.post("/admin/suppliers/delete-supplier/", suppliersController.postDeleteSupplier);
+
+//Products
+router.get("/admin/products", productController.getProducts);
+router.post("/admin/products/add-product", productController.uploadImage, productController.postAddProduct);
+router.get("/admin/products/:op/:id", productController.getProducts);
+router.post("/admin/products/edit-product/", productController.uploadImage, productController.postEditProduct);
+router.post("/admin/products/delete-product/", productController.postDeleteProduct);
+
+
+
+//manage accounts
+router.get("/admin/accounts", accountController.getAccounts);
+router.get("/admin/accounts/:op/:id", accountController.getAccounts);
+router.post("/admin/edit-user/", accountController.postEditUser);
+router.post("/admin/delete-user/", accountController.postDeleteUser);
+router.post("/admin/edit-admin/", accountController.postEditAdmin);
+router.post("/admin/delete-admin/", accountController.postDeleteAdmin);
+router.post("/admin/add-user", accountController.postAddUser);
+router.post("/admin/add-admin", accountController.postAddAdmin);
+
+
+
+// router.get("/admin/homepage", pageController.getHomePage);
 
 
 

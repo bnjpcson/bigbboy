@@ -21,6 +21,28 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <% if (success != "") { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <p class="text-center"><%= success %> </p>
+                                    </div>
+                                <% } %>
+                                <% if (error != "") { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            <% error.forEach(element => { %>
+                                            <li><%= element %></li>
+                                            <% }) %>
+                                        </ul>
+                                        
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="border-warning border-start border-1 p-2">

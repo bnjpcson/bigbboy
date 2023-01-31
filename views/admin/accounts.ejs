@@ -7,6 +7,12 @@
     $(document).ready(function() {
         $('#usersTable').DataTable();
         $('#adminTable').DataTable();
+        $("#btnAddUser").click(function(){
+            $("#addUser").modal("show");
+        });
+        $("#btnAddAdmin").click(function(){
+            $("#addAdmin").modal("show");
+        });
     });
         
    
@@ -37,13 +43,43 @@
                     <div class="container border-warning border-start border-1 mb-3">
                         <h1 class="h3">Manage Accounts</h1>
                     </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <% if (success != "") { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <p class="text-center"><%= success %> </p>
+                                    </div>
+                                <% } %>
+                                <% if (error != "") { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            <% error.forEach(element => { %>
+                                            <li><%= element %></li>
+                                            <% }) %>
+                                        </ul>
+                                        
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
                     
                     
 
                     <!-- DataTales Users -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <h4 class="card-title">Users Table</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title">Users Table</h4>
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-success"  id="btnAddUser">Add User</button>
+                                </div>
+                                
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -62,14 +98,14 @@
                                     <% if (users != "") { %>
                                        <% users.forEach(element => { %>
                                         <tr>
-                                            <td><%= element.id %></td>
+                                            <td><%= element.user_id %></td>
                                             <td><%= element.name %></td>
                                             <td><%= element.username %></td>
                                             <td><%= element.email %></td>
                                             <td><%= element.phonenum %></td>
                                             <td>
-                                                <a class="link" href="#"><i class="fas fa-edit fa-fw text-warning"></i></a>
-                                                <a class="link" href="#"><i class="fas fa-trash fa-fw text-danger"></i></a>
+                                                <a class="link" href="/admin/accounts/edit-user/<%= element.user_id %>"><i class="fas fa-edit fa-fw text-warning"></i></a>
+                                                <a class="link" href="/admin/accounts/delete-user/<%= element.user_id %>"><i class="fas fa-trash fa-fw text-danger"></i></a>
                                             </td>
 
 
@@ -91,7 +127,7 @@
                                     <h4 class="card-title">Admins Table</h4>
                                 </div>
                                 <div class="col text-end">
-                                    <button class="btn btn-success">Add Admin</button>
+                                    <button class="btn btn-success" id="btnAddAdmin">Add Admin</button>
                                 </div>
                                 
                             </div>
@@ -119,8 +155,8 @@
                                             <td><%= element.email %></td>
                                             <td><%= element.phonenum %></td>
                                             <td>
-                                                <a class="link" href="#"><i class="fas fa-edit fa-fw text-warning"></i></a>
-                                                <a class="link" href="#"><i class="fas fa-trash fa-fw text-danger"></i></a>
+                                                <a class="link" href="/admin/accounts/edit-admin/<%= element.admin_id %>"><i class="fas fa-edit fa-fw text-warning"></i></a>
+                                                <a class="link" href="/admin/accounts/delete-admin/<%= element.admin_id %>"><i class="fas fa-trash fa-fw text-danger"></i></a>
                                             </td>
 
 
@@ -138,6 +174,271 @@
                 <!-- /.container-fluid -->
 
             </div>
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="addAdmin" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Add Admin</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/add-admin" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phonenum" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <% if (selectedAdmin != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#editAdmin").modal("show");
+            });
+        </script>
+        
+        <div class="modal fade" id="editAdmin" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Edit Admin</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/edit-admin" method="post">
+                        <div class="modal-body">
+
+                            <input type="hidden" name="admin_id" value="<%= selectedAdmin[0].admin_id %>" required>
+
+                          
+                            <div class="mb-3">
+                                <label for="" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="<%= selectedAdmin[0].name %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" value="<%= selectedAdmin[0].username %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="<%= selectedAdmin[0].email %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="phonenum" value="<%= selectedAdmin[0].phonenum %>" required>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <% } %>
+
+     <!-- DELETE MODAL -->
+     <% if (selectedDelAdmin != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#deleteModalAdmin").modal("show");
+            });
+        </script>
+        
+        <div class="modal" id="deleteModalAdmin">
+            <div class="modal-dialog">
+            <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+          
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Do you really want to delete this record? This process cannot be undone.</p>
+            </div>
+          
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <form action="/admin/delete-admin" method="post">
+                <!-- <button type="submit" class="btn btn-secondary" name="btnClose">No</button> -->
+                <input type="hidden" class="form-control" name="admin_id" value="<%=selectedDelAdmin[0].admin_id %>">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-danger"  name="btnDelete">Yes</button>
+                </form>
+            </div>
+          
+            </div>
+            </div>
+          </div>   
+
+        
+    <% } %>
+
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Add User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/add-user" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phonenum" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <% if (selectedUser != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#editUser").modal("show");
+            });
+        </script>
+        
+        <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Edit User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/edit-user" method="post">
+                        <div class="modal-body">
+
+                            <input type="hidden" name="user_id" value="<%= selectedUser[0].user_id %>" required>
+
+                          
+                            <div class="mb-3">
+                                <label for="" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="<%= selectedUser[0].name %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" value="<%= selectedUser[0].username %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="<%= selectedUser[0].email %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="phonenum" value="<%= selectedUser[0].phonenum %>" required>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <% } %>
+
+     <!-- DELETE MODAL -->
+     <% if (selectedDelUser != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#deleteModalUser").modal("show");
+            });
+        </script>
+        
+        <div class="modal" id="deleteModalUser">
+            <div class="modal-dialog">
+            <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+          
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Do you really want to delete this record? This process cannot be undone.</p>
+            </div>
+          
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <form action="/admin/delete-user" method="post">
+                <!-- <button type="submit" class="btn btn-secondary" name="btnClose">No</button> -->
+                <input type="hidden" class="form-control" name="user_id" value="<%=selectedDelUser[0].user_id %>">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-danger"  name="btnDelete">Yes</button>
+                </form>
+            </div>
+          
+            </div>
+            </div>
+          </div>   
+
+        
+    <% } %>
 
             
 
@@ -158,42 +459,3 @@
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function(){
-
-       
-
-        function loadData(){
-            $.ajax({
-                url:"http://localhost:5000/admin/accounts-user",
-                method: "POST",
-                data:{action:"fetch"},
-                dataType: "JSON",
-                success: function(data){
-                    var html = "";
-
-                    if(data.data.length > 0){
-
-                        console.log(data.data.length);
-                        for (let index = 0; index < data.data.length; index++) {
-
-                            html = `
-                                <tr>
-                                    <td>`+data.data[index].id+`</td>
-                                    <td>`+data.data[index].name+`</td>
-                                    <td>`+data.data[index].username+`</td>
-                                    <td>`+data.data[index].email+`</td>
-                                    <td>`+data.data[index].phonenum+`</td>
-                                    <td>Actions</td>
-                                </tr>
-                            `;
-                        }
-
-                        $("#dataTable tbody").html(html);
-                    }
-                }
-            });
-        }
-    });
-</script>

@@ -1,15 +1,12 @@
 const dbcon = require('../db/conn.js');
 const bcrypt = require('bcrypt');
-const mysql = require('mysql');
-const randtoken = require('rand-token');
-const saltRounds = 10;
 
 const getLogin = (req, res)=>{
     const success = req.flash("success");
     const error = req.flash("error");
 
     if(req.session.usertype == "USER"){
-        res.render("/");
+        res.redirect("/");
     }else if(req.session.usertype == "ADMIN"){
         res.redirect("admin");
     }else{

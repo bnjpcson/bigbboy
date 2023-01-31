@@ -31,5 +31,5 @@ app.use(mainRoute);
 
 
 app.use((req, res)=>{
-    res.render("users/404", {title: "Page Not Found"});
+    res.render("404", {title: "Page Not Found"});
 });

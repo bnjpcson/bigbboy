@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %> 
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+        $("#btnAdd").click(function(){
+            $("#addModal").modal("show");
+        });
+    });
+        
+   
+</script>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar.ejs") %> 
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/topbar.ejs") %> 
+
+                <!-- Begin Page Content -->
+                <div class="container my-5">
+
+                    <!-- Page Heading -->
+
+                    <div class="container border-warning border-start border-1 mb-3">
+                        <h1 class="h3">Products</h1>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <% if (success != "") { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <p class="text-center"><%= success %> </p>
+                                    </div>
+                                <% } %>
+                                <% if (error != "") { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            <% error.forEach(element => { %>
+                                            <li><%= element %></li>
+                                            <% }) %>
+                                        </ul>
+                                        
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!-- DataTales Supplier -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button class="btn btn-success" id="btnAdd">Add Product</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Supplier Name</th>
+                                            <th>Product Name</th>
+                                            <th>Product Price</th>
+                                            <th>Product SRP</th>
+                                            <th>Quantity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if (data != "") { %>
+                                       <% data.forEach(element => { %>
+                                        <tr>
+                                            <td style="width: 100px;">
+                                                <img src="/images/products/<%= element.imgpath %>" alt="<%= element.prod_name %>" class="img-fluid">
+                                            </td>
+                                            <td><%= element.supplier_name %></td>
+                                            <td><%= element.prod_name %></td>
+                                            <td><%= element.prod_price.toFixed(2) %></td>
+                                            <td><%= element.prod_srp.toFixed(2) %></td>
+                                            <td><%= element.qty %></td>
+                                            <td>
+                                                <a class="link" href="/admin/products/edit-product/<%= element.prod_id %>"><i class="fas fa-edit fa-fw text-warning"></i></a>
+                                                <a class="link" href="/admin/products/delete-product/<%= element.prod_id %>"><i class="fas fa-trash fa-fw text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                       <% }) %>
+                                    <% } %> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+
+    <!-- ADD MODAL -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Add Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/products/add-product" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Supplier</label>
+                            <select class="form-select" name="supplier_id">
+                                <% if (suppliers != "") { %>
+                                 <% suppliers.forEach(element => { %>
+                                  <option value="<%= element.supplier_id %>"><%= element.supplier_name %></option>
+                                 <% }) %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" name="prod_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Product Price</label>
+                            <input type="number" class="form-control" name="prod_price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Product SRP</label>
+                            <input type="number" class="form-control" name="prod_srp" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" min="1" name="qty" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Image</label>
+                            <input type="file" class="form-control" name="image" required>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <% if (selected != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#editModal").modal("show");
+            });
+        </script>
+        
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/products/edit-product" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+
+                            <input type="hidden" name="prod_id" value="<%= selected[0].prod_id %>" required>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Supplier</label>
+                                <select class="form-select" name="supplier_id">
+                                    <% if (suppliers != "") { %>
+                                     <% suppliers.forEach(element => { %>
+                                      <option value="<%= element.supplier_id %>" <% if (element.supplier_id == selected[0].supplier_id) { %>selected<% } %>><%= element.supplier_name %></option>
+                                     <% }) %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="prod_name" value="<%= selected[0].prod_name %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product Price</label>
+                                <input type="number" class="form-control" name="prod_price" value="<%= selected[0].prod_price.toFixed(2) %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product SRP</label>
+                                <input type="number" class="form-control" name="prod_srp" value="<%= selected[0].prod_srp.toFixed(2) %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" name="qty" min="1" value="<%= selected[0].qty %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Image</label>
+                                <input type="file" class="form-control" name="image">
+                            </div>
+
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <% } %>
+
+     <!-- DELETE MODAL -->
+     <% if (selectedDel != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#deleteModal").modal("show");
+            });
+        </script>
+        
+        <div class="modal" id="deleteModal">
+            <div class="modal-dialog">
+            <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+          
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Do you really want to delete this record? This process cannot be undone.</p>
+            </div>
+          
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <form action="/admin/products/delete-product" method="post">
+                <!-- <button type="submit" class="btn btn-secondary" name="btnClose">No</button> -->
+                <input type="hidden" class="form-control" name="prod_id" value="<%=selectedDel[0].prod_id %>">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-danger"  name="btnDelete">Yes</button>
+                </form>
+            </div>
+          
+            </div>
+            </div>
+          </div>   
+
+        
+    <% } %>
+  
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer.ejs") %> 
+            
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scripts.ejs") %> 
+
+</body>
+
+</html>
