@@ -161,11 +161,14 @@ const postDeleteProduct = async (req, res)=>{
 };
 
 
-
+const getCart = async (req, res) =>{
+    res.render("users/mycart", {title: "My Cart"});
+}
 
 module.exports = {
     viewProduct,
     postAddToCart,
     postEditProduct,
-    postDeleteProduct
+    postDeleteProduct,
+    getCart
 };

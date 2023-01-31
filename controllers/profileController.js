@@ -1,16 +1,10 @@
 const ProductPromise = require('../promises/Product.js');
+const AccountPromise = require('../promises/Account.js');
 const UserOrderPromise = require('../promises/UserOrder.js');
 
 
-const viewProduct = async (req, res)=>{
+const getProfile = async (req, res)=>{
 
-    const prod_id = req.params.prod_id;
-    
-    let data = await ProductPromise.DBselectProduct(prod_id);
-
-    const success = req.flash("success");
-    const error = req.flash("error");
-    
     let sessions = {
         user_id : req.session.user_id,
         admin_id : req.session.admin_id,
@@ -19,15 +13,17 @@ const viewProduct = async (req, res)=>{
         usertype: req.session.usertype,
         email : req.session.email,
     };
-    
-    if(data != ""){
-        if(sessions.usertype == "USER"){
-            res.render("users/view-one", {title: data[0].prod_name, sessions, success, error, data});
-        }else if(sessions.usertype == "ADMIN"){
-            res.redirect("/");
-        }else{
-            res.render("view-one", {title: data[0].prod_name, sessions, success, error, data});
-        }
+
+    const success = req.flash("success");
+    const error = req.flash("error");
+
+    let user = await AccountPromise.DBselectUser(sessions.user_id);
+    let admin = await AccountPromise.DBselectUser(sessions.admin_id);
+
+    if(sessions.usertype == "USER"){
+        res.render("users/profile", {title: "Profile", user, success, error});
+    }else if(sessions.usertype == "ADMIN"){
+        res.render("admin/profile", {title: "Profile | Admin", success, error, admin});
     }else{
         res.redirect("/");
     }
@@ -35,44 +31,32 @@ const viewProduct = async (req, res)=>{
     
 };
 
-const postAddToCart = async (req, res)=>{
+const postSaveProfile = async (req, res)=>{
 
     const req_data = {
-        user_id : req.body.user_id,
-        prod_id : req.body.prod_id,
-        qty : req.body.qty,
-        totalprice : 1
+        user_id: req.body.user_id,
+        name : req.body.name,
+        username : req.body.username,
+        email : req.body.email,
+        phonenum : req.body.phonenum
     };
 
-    let product = await ProductPromise.DBselectProduct(req_data.prod_id);   
-    if(product != ""){
-        req_data.totalprice = req_data.qty * product[0].prod_srp;
+    let user = await AccountPromise.DBselectUser(req_data.user_id);
+
+    if(user != ""){
         try {
-            await UserOrderPromise.DBaddUserOrder(req_data);   
-            req.flash("success", "Your order was added successfully!");
-            res.redirect("/view-product/"+req_data.prod_id);
+            await AccountPromise.DBupdateUser(req_data);
+            req.flash("success", "Your profile has been saved successfully!");
+            res.redirect("/user/profile");
         } catch (error) {
             console.log(error);
-            await req.flash("error", "Failed to add your order.");
-            res.redirect("/view-product/"+req_data.prod_id);
+            req.flash("error", "Failed to edit your profile.");
+            res.redirect("/user/profile");
         }
-
     }else{
-        await req.flash("error", "ID not found!");
-        res.redirect("/view-product/"+req_data.prod_id);
+        res.redirect("/");
     }
-
-
-    // try {
-    //     await ProductPromise.DBaddProduct(req_data);   
-    //     await req.flash("success", "Product inserted successfully.");
-    //     res.redirect("/admin/products");
-
-    // } catch (error) {
-    //     console.log(error);
-    //     await req.flash("error", "Failed to insert product.");
-    //     res.redirect("/admin/products");
-    // }
+    
 };
 
 const postEditProduct = async (req, res)=>{
@@ -161,11 +145,9 @@ const postDeleteProduct = async (req, res)=>{
 };
 
 
-
-
 module.exports = {
-    viewProduct,
-    postAddToCart,
+    getProfile,
+    postSaveProfile,
     postEditProduct,
     postDeleteProduct
 };

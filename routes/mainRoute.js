@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const homeController = require('../controllers/homeController.js');
-const productsController = require('../controllers/productsController.js');
 const contactController = require('../controllers/contactController.js');
 const servicesController = require('../controllers/servicesController.js');
 const loginController = require('../controllers/loginController.js');
@@ -14,10 +13,9 @@ const accountController = require('../controllers/accountController.js');
 const productController = require('../controllers/productController.js');
 const suppliersController = require('../controllers/suppliersController.js');
 const viewController = require('../controllers/viewController.js');
-
-
-
-
+const cartController = require('../controllers/cartController.js');
+const messageController = require('../controllers/messageController.js');
+const profileController = require('../controllers/profileController.js');
 
 
 
@@ -25,7 +23,8 @@ const viewController = require('../controllers/viewController.js');
 
 router.get("/", homeController.getHome);
 router.get("/products", productController.getProducts);
-router.get("/view-product/:prod_id", viewController.getProduct);
+router.get("/view-product/:prod_id", viewController.viewProduct);
+router.post("/view-product/addtocart", viewController.postAddToCart);
 
 
 router.get("/contact", contactController.getContact);
@@ -38,9 +37,23 @@ router.post("/login", loginController.postLogin);
 router.get("/register", registerController.getRegister);
 router.post("/register", registerController.postRegister);
 
+
+//user routes
+router.get("/user/cart", cartController.getCart);
+router.get("/user/orders", orderController.getOrder);
+
+router.get("/user/messages", messageController.getMessages);
+router.get("/user/profile", profileController.getProfile);
+router.post("/user/profile", profileController.postSaveProfile);
+
+
+
+
+
+
+//admin routes
 router.get("/admin/login", adminController.getAdminLogin);
 router.post("/admin/login", adminController.postAdminLogin);
-
 
 //dashboard
 router.get("/admin", adminController.getAdmin);
@@ -48,15 +61,11 @@ router.get("/admin", adminController.getAdmin);
 //orders
 router.get("/admin/orders", orderController.getOrder);
 
-
 //transactions
 router.get("/admin/transactions", transactionsController.getTransactions);
 
 //sales report
 router.get("/admin/sales", salesController.getSales);
-
-
-
 
 //suppliers
 router.get("/admin/suppliers", suppliersController.getSuppliers);
@@ -71,8 +80,6 @@ router.post("/admin/products/add-product", productController.uploadImage, produc
 router.get("/admin/products/:op/:id", productController.getProducts);
 router.post("/admin/products/edit-product/", productController.uploadImage, productController.postEditProduct);
 router.post("/admin/products/delete-product/", productController.postDeleteProduct);
-
-
 
 //manage accounts
 router.get("/admin/accounts", accountController.getAccounts);

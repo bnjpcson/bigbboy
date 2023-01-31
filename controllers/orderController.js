@@ -11,11 +11,11 @@ const getOrder = (req, res)=>{
     };
 
     if(sessions.usertype == "USER"){
-        res.redirect("/");
+        res.render("users/orders", {title: "Orders", sessions});
     }else if(sessions.usertype == "ADMIN"){
         res.render("admin/order", {title: "Orders | Admin", sessions});
     }else{
-        res.redirect("/admin/login");
+        res.redirect("/");
     }
 };
 

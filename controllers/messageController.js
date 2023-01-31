@@ -2,15 +2,8 @@ const ProductPromise = require('../promises/Product.js');
 const UserOrderPromise = require('../promises/UserOrder.js');
 
 
-const viewProduct = async (req, res)=>{
+const getMessages = async (req, res)=>{
 
-    const prod_id = req.params.prod_id;
-    
-    let data = await ProductPromise.DBselectProduct(prod_id);
-
-    const success = req.flash("success");
-    const error = req.flash("error");
-    
     let sessions = {
         user_id : req.session.user_id,
         admin_id : req.session.admin_id,
@@ -19,18 +12,41 @@ const viewProduct = async (req, res)=>{
         usertype: req.session.usertype,
         email : req.session.email,
     };
-    
-    if(data != ""){
-        if(sessions.usertype == "USER"){
-            res.render("users/view-one", {title: data[0].prod_name, sessions, success, error, data});
-        }else if(sessions.usertype == "ADMIN"){
-            res.redirect("/");
-        }else{
-            res.render("view-one", {title: data[0].prod_name, sessions, success, error, data});
-        }
+
+    if(sessions.usertype == "USER"){
+        res.render("users/messages", {title: "Messages"});
+    }else if(sessions.usertype == "ADMIN"){
+        res.render("admin/messages", {title: "Messages"});
     }else{
         res.redirect("/");
     }
+    // const prod_id = req.params.prod_id;
+    
+    // let data = await ProductPromise.DBselectProduct(prod_id);
+
+    // const success = req.flash("success");
+    // const error = req.flash("error");
+    
+    // let sessions = {
+    //     user_id : req.session.user_id,
+    //     admin_id : req.session.admin_id,
+    //     name : req.session.name,
+    //     username : req.session.username,
+    //     usertype: req.session.usertype,
+    //     email : req.session.email,
+    // };
+    
+    // if(data != ""){
+    //     if(sessions.usertype == "USER"){
+    //         res.render("users/view-one", {title: data[0].prod_name, sessions, success, error, data});
+    //     }else if(sessions.usertype == "ADMIN"){
+    //         res.redirect("/");
+    //     }else{
+    //         res.render("view-one", {title: data[0].prod_name, sessions, success, error, data});
+    //     }
+    // }else{
+    //     res.redirect("/");
+    // }
 
     
 };
@@ -161,11 +177,14 @@ const postDeleteProduct = async (req, res)=>{
 };
 
 
-
+const getCart = async (req, res) =>{
+    res.render("users/mycart", {title: "My Cart"});
+}
 
 module.exports = {
-    viewProduct,
+    getMessages,
     postAddToCart,
     postEditProduct,
-    postDeleteProduct
+    postDeleteProduct,
+    getCart
 };

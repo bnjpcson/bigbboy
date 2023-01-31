@@ -34,105 +34,103 @@
                     <div class="container border-warning border-start border-1 mb-3">
                         <h1 class="h3">Sales Report</h1>
                     </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4>Sales Summary</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <label for="">From</label>
+                                                <input class="form-control" type="date" name="" id="">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="">To</label>
+                                                <input class="form-control" type="date" name="" id="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100" type="submit">Generate</button>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4>Sales Per Product</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="">
+                                                    <label for="" class="form-label">Product</label>
+                                                    <select class="form-select" name="" id="">
+                                                        <% products.forEach(element => { %>
+                                                            <option value=""><%= element.prod_name %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100" type="submit">Generate</button>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4>Sales Per Customer</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="">
+                                                    <label for="" class="form-label">Customer</label>
+                                                    <select class="form-select" name="" id="">
+                                                        <% customers.forEach(element => { %>
+                                                            <option value=""><%= element.name %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100" type="submit">Generate</button>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                   
 
                 </div>
                 <!-- /.container-fluid -->

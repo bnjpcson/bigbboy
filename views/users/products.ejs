@@ -36,179 +36,29 @@
 
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                    <!-- Product image-->
-                    <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4" style="height: 8rem;">
-                        <div class="text-center">
-                                <span class="product-title">Original Honda TMX 125/155 
-                                    Clutch Lining</span>
-                                <br><br>
-                                <span class="product-price">Php 835.00</span>
-                            </div>
-                        </div>
-                     </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
+            <% if (data != "") { %>
+            <% data.forEach(element => { %>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <a href="/view-product/<%= element.prod_id %>">
                         <!-- Product image-->
-                        <div class="badge bg-danger text-white position-absolute" style="top: 1rem; right: 1rem">Sale</div>
-                        <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
+                        <img class="card-img-top p-2 bg-light" style="height: 200px;" src="images/products/<%= element.imgpath %> " alt="..." />
                         <!-- Product details-->
                         <div class="card-body p-4" style="height: 8rem;">
                             <div class="text-center">
-                                    <span class="product-title">Original Honda TMX 125/155 
-                                        Clutch Lining</span>
+                                    <span class="product-title"><%= element.prod_name %></span>
                                     <br><br>
-                                    <span class="product-price text-muted text-decoration-line-through">Php 835.00</span>
-                                    <span class="product-price">Php 600.00</span>
-                            </div>
-                         </div>
-                    </a>
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                </div>
-            </div>
-        </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                        <!-- Product image-->
-                        <div class="badge bg-danger text-white position-absolute" style="top: 1rem; right: 1rem">Sale</div>
-                        <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4" style="height: 8rem;">
-                            <div class="text-center">
-                                    <span class="product-title">Original Honda TMX 125/155 
-                                        Clutch Lining</span>
-                                    <br><br>
-                                    <span class="product-price text-muted text-decoration-line-through">Php 835.00</span>
-                                    <span class="product-price">Php 600.00</span>
-                            </div>
-                         </div>
-                    </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                        <!-- Product image-->
-                        <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4" style="height: 8rem;">
-                            <div class="text-center">
-                                    <span class="product-title">Original Honda TMX 125/155 
-                                        Clutch Lining</span>
-                                    <br><br>
-                                    <span class="product-price">Php 835.00</span>
+                                    <span class="product-price">Php <%= element.prod_srp.toFixed(2) %></span>
                                 </div>
                             </div>
-                         </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                    <!-- Product image-->
-                    <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4" style="height: 8rem;">
-                        <div class="text-center">
-                                <span class="product-title">Original Honda TMX 125/155 
-                                    Clutch Lining</span>
-                                <br><br>
-                                <span class="product-price">Php 835.00</span>
-                            </div>
-                        </div>
-                     </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                    <!-- Product image-->
-                    <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4" style="height: 8rem;">
-                        <div class="text-center">
-                                <span class="product-title">Original Honda TMX 125/155 
-                                    Clutch Lining</span>
-                                <br><br>
-                                <span class="product-price">Php 835.00</span>
-                            </div>
-                        </div>
-                     </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                    <!-- Product image-->
-                    <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4" style="height: 8rem;">
-                        <div class="text-center">
-                                <span class="product-title">Original Honda TMX 125/155 
-                                    Clutch Lining</span>
-                                <br><br>
-                                <span class="product-price">Php 835.00</span>
-                            </div>
-                        </div>
-                     </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <a href="#">
-                    <!-- Product image-->
-                    <img class="card-img-top p-2" src="images/parts/clutch_lining.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4" style="height: 8rem;">
-                        <div class="text-center">
-                                <span class="product-title">Original Honda TMX 125/155 
-                                    Clutch Lining</span>
-                                <br><br>
-                                <span class="product-price">Php 835.00</span>
-                            </div>
-                        </div>
-                     </a>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>
-            </div>
+            <% }) %>
+            <% } %>
+            
+        
+            
         </div>
     </div>
 </section>

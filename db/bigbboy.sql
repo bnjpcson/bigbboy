@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2023 at 10:38 AM
+-- Generation Time: Jan 31, 2023 at 10:26 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -343,9 +343,15 @@ CREATE TABLE `userorders` (
   `user_id` int(20) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `totalprice` decimal(18,2) NOT NULL,
   `checkout` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `userorders`
+--
+
+INSERT INTO `userorders` (`userOrders_id`, `user_id`, `prod_id`, `quantity`, `checkout`) VALUES
+(1, 5, 8, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -570,7 +576,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

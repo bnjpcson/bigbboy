@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials2/head.ejs") %> 
+
+<body id="page-top">
+<script>
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+          order: [[0, 'desc']],
+        });
+    });
+</script>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials2/sidebar.ejs") %> 
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials2/topbar.ejs") %> 
+
+                <!-- Begin Page Content -->
+                <div class="container">
+                    <!-- Page Heading -->
+                    <div class="container border-warning border-start border-1 mb-3">
+                        <h1 class="h3">My Orders</h1>
+                    </div>
+
+                  
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                  <thead>
+                                      <tr>
+                                          <th>Order ID</th>
+                                          <th>Product Name</th>
+                                          <th>Quantity</th>
+                                          <th>Total Amount</th>
+                                          <th>Status</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>4</td>
+                                      <td>Spark Plug</td>
+                                      <td>10</td>
+                                      <td>Php 2000.00</td>
+                                      <td class="text-warning">Pending</td>
+                                      <td>
+                                        <button class="btn btn-outline-primary">Contact Seller</button>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>3</td>
+                                      <td>Air Filter</td>
+                                      <td>5</td>
+                                      <td>Php 750.00</td>
+                                      <td class="text-danger">Canceled</td>
+                                      <td>
+                                        <button class="btn btn-outline-primary">Contact Seller</button>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>2</td>
+                                      <td>Original Honda TMX Clutch Lining</td>
+                                      <td>3</td>
+                                      <td>Php 1800.00</td>
+                                      <td class="text-success">Confirmed</td>
+                                      <td>
+                                        <button class="btn btn-outline-primary">Mark as Completed</button>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>1</td>
+                                      <td>Original Honda TMX Clutch Lining</td>
+                                      <td>3</td>
+                                      <td>Php 1800.00</td>
+                                      <td class="text-success">Completed</td>
+                                      <td>
+                                        <!-- <button class="btn btn-outline-primary">Mark as Completed</button> -->
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                    </div>
+                     
+
+                  
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+
+            <!-- End of Main Content -->
+
+            <%- include("./partials2/footer.ejs") %> 
+            
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials2/scripts.ejs") %> 
+
+</body>
+
+</html>

@@ -65,7 +65,7 @@ const postAdminLogin = (req, res)=>{
             }else{
                 if(result.length > 0){
                     //login success
-                    const id = result[0].id;
+                    const id = result[0].admin_id;
                     const name = result[0].name;
                     const username = result[0].username;
                     const hash = result[0].password;
@@ -80,7 +80,7 @@ const postAdminLogin = (req, res)=>{
     
                             if(match){
     
-                                req.session.id = id;
+                                req.session.admin_id = id;
                                 req.session.name = name;
                                 req.session.username = username;
                                 req.session.usertype = "ADMIN";

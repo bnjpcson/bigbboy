@@ -1,6 +1,8 @@
 const dbcon = require('../db/conn.js');
+const AccountPromise = require('../promises/Account.js');
+const ProductPromise = require('../promises/Product.js');
 
-const getSales = (req, res)=>{
+const getSales = async (req, res)=>{
 
     let sessions = {
         id : req.session.id,
@@ -10,10 +12,14 @@ const getSales = (req, res)=>{
         email : req.session.email,
     };
 
+    let products = await ProductPromise.DBgetProducts();
+    let customers = await AccountPromise.DBgetUsers();
+
+
     if(sessions.usertype == "USER"){
         res.redirect("/");
     }else if(sessions.usertype == "ADMIN"){
-        res.render("admin/sales", {title: "Sales Report | Admin", sessions});
+        res.render("admin/sales", {title: "Sales Report | Admin", sessions, products, customers});
     }else{
         res.redirect("/admin/login");
     }

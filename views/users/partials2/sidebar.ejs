@@ -1,0 +1,116 @@
+<!-- Sidebar -->
+
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #F67211;">
+
+    <!-- Sidebar - Brand -->
+    <div class="container  bg-white shadow" style="padding: 17.5px 35px;">
+        <div class="row">
+            <div class="col">
+                <a href="/"><i class="fas fa-arrow-left fa-2x" style="color:#777777"></i></a>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item
+    <% if (title == "My Cart") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link" href="/user/cart">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>Cart</span>
+        </a>
+    </li>
+
+
+    <!-- Nav Item - Orders -->
+    <li class="nav-item
+    <% if (title == "Orders") { %>
+        active
+    <% } %>
+    ">
+
+        <a class="nav-link collapsed" href="/user/orders">
+            <i class="fas fa-fw fa-file-invoice"></i>
+            <span>Orders</span>
+        </a>
+
+    </li>
+
+    
+
+    <!-- Nav Item - Sales Report -->
+    <li class="nav-item
+    <% if (title == "Messages") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/user/messages">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Messages</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Sales Report -->
+    <li class="nav-item
+    <% if (title == "Profile") { %>
+        active
+    <% } %>
+    ">
+        <a class="nav-link collapsed" href="/user/profile">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </li>
+
+
+    
+
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <!-- <div class="sidebar-heading">
+        Manage My Website
+    </div> -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- <li class="nav-item
+    <% //if (title == "Pages | Admin") { %>
+        active
+    <% //} %>
+    ">
+        <a class="nav-link collapsed" href="/admin/homepage" data-toggle="collapse" data-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/homepage">Home Page</a>
+                <a class="collapse-item" href="#">Products Page</a>
+                <a class="collapse-item" href="#">Services Page</a>
+                <a class="collapse-item" href="#">Contacts Page</a>
+            </div>
+        </div>
+    </li> -->
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+</ul>
+<!-- End of Sidebar -->
+
+
