@@ -1,5 +1,7 @@
 const ProductPromise = require('../promises/Product.js');
 const UserOrderPromise = require('../promises/UserOrder.js');
+const OrderPromise = require('../promises/Order.js');
+
 
 
 const viewProduct = async (req, res)=>{
@@ -37,42 +39,65 @@ const viewProduct = async (req, res)=>{
 
 const postAddToCart = async (req, res)=>{
 
-    const req_data = {
+    let req_data = {
         user_id : req.body.user_id,
         prod_id : req.body.prod_id,
         qty : req.body.qty,
-        totalprice : 1
+        order_id : req.body.order_id,
     };
 
-    let product = await ProductPromise.DBselectProduct(req_data.prod_id);   
-    if(product != ""){
-        req_data.totalprice = req_data.qty * product[0].prod_srp;
-        try {
-            await UserOrderPromise.DBaddUserOrder(req_data);   
-            req.flash("success", "Your order was added successfully!");
-            res.redirect("/view-product/"+req_data.prod_id);
-        } catch (error) {
-            console.log(error);
-            await req.flash("error", "Failed to add your order.");
+    let order = await OrderPromise.DBselectLastOrder(req_data.user_id);
+
+    if(order != ""){
+        //meron, add to cart
+        req_data.order_id = order[0].order_id;
+
+        let product = await ProductPromise.DBselectProduct(req_data.prod_id);   
+        if(product != ""){
+            try {
+                await UserOrderPromise.DBaddUserOrder(req_data);   
+                req.flash("success", "Your order was added successfully!");
+                res.redirect("/view-product/"+req_data.prod_id);
+            } catch (error) {
+                console.log(error);
+                await req.flash("error", "Failed to add your order.");
+                res.redirect("/view-product/"+req_data.prod_id);
+            }
+
+        }else{
+            await req.flash("error", "ID not found!");
             res.redirect("/view-product/"+req_data.prod_id);
         }
 
     }else{
-        await req.flash("error", "ID not found!");
-        res.redirect("/view-product/"+req_data.prod_id);
+        //wala, create order
+        try {
+            await OrderPromise.DBaddOrder(req_data.user_id);
+            
+        } catch (error) {
+            console.log(error);
+            res.redirect("/view-product/"+req_data.prod_id);
+        }
+
+        let order = await OrderPromise.DBselectLastOrder(req_data.user_id);
+        req_data.order_id = order[0].order_id;
+        let product = await ProductPromise.DBselectProduct(req_data.prod_id);   
+        if(product != ""){
+            try {
+                await UserOrderPromise.DBaddUserOrder(req_data);   
+                req.flash("success", "Your order was added successfully!");
+                res.redirect("/view-product/"+req_data.prod_id);
+            } catch (error) {
+                console.log(error);
+                await req.flash("error", "Failed to add your order.");
+                res.redirect("/view-product/"+req_data.prod_id);
+            }
+
+        }else{
+            await req.flash("error", "ID not found!");
+            res.redirect("/view-product/"+req_data.prod_id);
+        }
     }
-
-
-    // try {
-    //     await ProductPromise.DBaddProduct(req_data);   
-    //     await req.flash("success", "Product inserted successfully.");
-    //     res.redirect("/admin/products");
-
-    // } catch (error) {
-    //     console.log(error);
-    //     await req.flash("error", "Failed to insert product.");
-    //     res.redirect("/admin/products");
-    // }
 };
 
 const postEditProduct = async (req, res)=>{

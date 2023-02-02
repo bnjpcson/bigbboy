@@ -40,6 +40,19 @@ router.post("/register", registerController.postRegister);
 
 //user routes
 router.get("/user/cart", cartController.getCart);
+router.get("/user/cart/:checkout", cartController.getCart);
+router.post("/user/cart/checkout", cartController.postPlaceOrder);
+
+
+
+router.get("/count-my-cart", cartController.getCountCart);
+router.get("/get-sum", cartController.getSum);
+
+router.get("/user/delete-item/:userOrders_id", cartController.getRemoveOrder);
+
+router.put("/cart/update/:userOrders_id/:quantity", cartController.updateQuantity);
+
+
 router.get("/user/orders", orderController.getOrder);
 
 router.get("/user/messages", messageController.getMessages);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2023 at 10:26 PM
+-- Generation Time: Feb 02, 2023 at 06:03 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -257,10 +257,43 @@ INSERT INTO `mvision` (`id`, `title`, `description`, `created_at`, `updated_at`)
 
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
-  `userOrders_id` int(11) NOT NULL,
+  `user_id` int(20) NOT NULL,
   `status` varchar(50) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
+(1, 5, 'DONE', '2023-02-01'),
+(2, 4, 'DONE', '2023-02-02'),
+(3, 5, 'DONE', '2023-02-03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `placedorders`
+--
+
+CREATE TABLE `placedorders` (
+  `place_orderid` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `p_method` varchar(100) NOT NULL,
+  `totalprice` decimal(18,2) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `placedorders`
+--
+
+INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice`, `status`, `date`) VALUES
+(1, 1, 'CASH', '1000.00', 'Pending', '2023-02-02'),
+(2, 2, 'CASH', '550.00', 'Pending', '2023-02-02'),
+(3, 3, 'GCASH', '800.00', 'Pending', '2023-02-03');
 
 -- --------------------------------------------------------
 
@@ -284,7 +317,6 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`) VALUES
-(1, 2, 'Original Honda TMX Clutch Lining', '468.00', '600.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At nisi obcaecati voluptatem dolore nesciunt, laboriosam ea debitis ad laudantium. Quisquam, quasi omnis. Ex doloremque dolores repudiandae voluptatibus, quidem eos laboriosam.', 'Original Honda TMX Clutch Lining_1675083033502.jpg', 10),
 (2, 1, 'Break Pads', '410.00', '500.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, praesentium autem hic amet voluptatum eos, asperiores quo voluptates officiis temporibus, esse assumenda corporis fugit architecto vitae reiciendis laborum odio quibusdam.', 'Brake Pads_1675087042421.webp', 5),
 (6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 10),
 (7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 15),
@@ -340,18 +372,22 @@ INSERT INTO `suppliers` (`supplier_id`, `supplier_name`) VALUES
 
 CREATE TABLE `userorders` (
   `userOrders_id` int(11) NOT NULL,
-  `user_id` int(20) NOT NULL,
+  `order_id` int(11) NOT NULL,
   `prod_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `checkout` tinyint(1) NOT NULL
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `userorders`
 --
 
-INSERT INTO `userorders` (`userOrders_id`, `user_id`, `prod_id`, `quantity`, `checkout`) VALUES
-(1, 5, 8, 2, 0);
+INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VALUES
+(6, 1, 8, 3),
+(8, 1, 6, 2),
+(9, 2, 8, 2),
+(10, 2, 7, 1),
+(11, 3, 8, 2),
+(12, 3, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -449,7 +485,14 @@ ALTER TABLE `mvision`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `userOrders_id` (`userOrders_id`);
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `placedorders`
+--
+ALTER TABLE `placedorders`
+  ADD PRIMARY KEY (`place_orderid`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `products`
@@ -476,7 +519,7 @@ ALTER TABLE `suppliers`
 ALTER TABLE `userorders`
   ADD PRIMARY KEY (`userOrders_id`),
   ADD KEY `userorders_ibfk_1` (`prod_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `users`
@@ -552,7 +595,13 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `placedorders`
+--
+ALTER TABLE `placedorders`
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -576,7 +625,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -592,7 +641,13 @@ ALTER TABLE `users`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userOrders_id`) REFERENCES `userorders` (`userOrders_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `placedorders`
+--
+ALTER TABLE `placedorders`
+  ADD CONSTRAINT `placedorders_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`);
 
 --
 -- Constraints for table `products`
@@ -605,7 +660,7 @@ ALTER TABLE `products`
 --
 ALTER TABLE `userorders`
   ADD CONSTRAINT `userorders_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `products` (`prod_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `userorders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `userorders_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,6 +11,19 @@ const DBgetUserOrders = async () => {
         });
     });
 }
+
+const DBselectUserOrders = async (user_id) => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT * FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id INNER JOIN orders ON userorders.order_id = orders.order_id INNER JOIN users ON orders.user_id = users.user_id WHERE users.user_id = ? AND orders.status = ?';
+        dbcon.query(sql, [user_id, "CART"], (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
 const DBselectUserOrder = async (id) => {
     return new Promise((resolve, reject)=>{
         let sql = 'SELECT * FROM userorders WHERE userOrders_id = ?';
@@ -24,8 +37,20 @@ const DBselectUserOrder = async (id) => {
 }
 const DBaddUserOrder = async (userOrder) => {
     return new Promise((resolve, reject)=>{
-        let sql = 'INSERT INTO userorders (user_id, prod_id, quantity, totalprice, checkout) VALUES (?,?,?,?,?)';
-        dbcon.query(sql, [userOrder.user_id, userOrder.prod_id, userOrder.qty, userOrder.totalprice, 0], (error, elements)=>{
+        let sql = 'INSERT INTO userorders (order_id, prod_id, quantity) VALUES (?,?,?)';
+        dbcon.query(sql, [userOrder.order_id, userOrder.prod_id, userOrder.qty], (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
+const DBgetTotalSum = async (user_id, order_id) => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT sum(subtotal) AS order_total FROM (SELECT userorders.order_id,userorders.prod_id, (prod_srp * quantity) AS subtotal FROM userorders INNER JOIN orders ON userorders.order_id = orders.order_id INNER JOIN products ON userorders.prod_id = products.prod_id WHERE user_id = ? AND userorders.order_id = ?) t';
+        dbcon.query(sql, [user_id, order_id], (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -45,10 +70,23 @@ const DBupdateUserOrder = async (userOrder) => {
         });
     });
 }
-const DBdeleteUserOrder = async (prod_id) => {
+
+const DBupdateOrderQuantity = async (userOrder) => {
     return new Promise((resolve, reject)=>{
-        let sql = 'DELETE FROM products WHERE prod_id = ?';
-        dbcon.query(sql, [prod_id], (error, elements)=>{
+        let sql = 'UPDATE userorders SET quantity = ? WHERE userOrders_id = ?';
+        dbcon.query(sql, [userOrder.quantity, userOrder.userOrders_id], (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
+const DBdeleteUserOrder = async (userOrders_id) => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'DELETE FROM userorders WHERE userOrders_id = ?';
+        dbcon.query(sql, [userOrders_id], (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -59,8 +97,11 @@ const DBdeleteUserOrder = async (prod_id) => {
 
 module.exports = {
     DBgetUserOrders,
+    DBselectUserOrders,
     DBselectUserOrder,
     DBaddUserOrder,
+    DBgetTotalSum,
     DBupdateUserOrder,
+    DBupdateOrderQuantity,
     DBdeleteUserOrder
 }
