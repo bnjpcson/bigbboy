@@ -54,6 +54,9 @@ router.put("/cart/update/:userOrders_id/:quantity", cartController.updateQuantit
 
 
 router.get("/user/orders", orderController.getOrder);
+router.get("/user/orders/:op/:placedorder_id", orderController.getOrder);
+router.get("/user/orders/:op/:placedorder_id", orderController.getOrder);
+
 
 router.get("/user/messages", messageController.getMessages);
 router.get("/user/profile", profileController.getProfile);
@@ -73,6 +76,8 @@ router.get("/admin", adminController.getAdmin);
 
 //orders
 router.get("/admin/orders", orderController.getOrder);
+router.get("/admin/orders/:op/:placedorder_id", orderController.getOrder);
+
 
 //transactions
 router.get("/admin/transactions", transactionsController.getTransactions);

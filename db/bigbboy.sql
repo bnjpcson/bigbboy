@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2023 at 06:03 PM
+-- Generation Time: Feb 06, 2023 at 05:34 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -269,7 +269,10 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
 (1, 5, 'DONE', '2023-02-01'),
 (2, 4, 'DONE', '2023-02-02'),
-(3, 5, 'DONE', '2023-02-03');
+(3, 5, 'DONE', '2023-02-03'),
+(4, 5, 'DONE', '2023-02-06'),
+(5, 12, 'DONE', '2023-02-06'),
+(6, 5, 'DONE', '2023-02-06');
 
 -- --------------------------------------------------------
 
@@ -291,9 +294,12 @@ CREATE TABLE `placedorders` (
 --
 
 INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice`, `status`, `date`) VALUES
-(1, 1, 'CASH', '1000.00', 'Pending', '2023-02-02'),
-(2, 2, 'CASH', '550.00', 'Pending', '2023-02-02'),
-(3, 3, 'GCASH', '800.00', 'Pending', '2023-02-03');
+(1, 1, 'CASH', '1000.00', 'Approved', '2023-02-02'),
+(2, 2, 'CASH', '550.00', 'Approved', '2023-02-02'),
+(3, 3, 'GCASH', '800.00', 'Approved', '2023-02-03'),
+(4, 4, 'CASH', '500.00', 'Approved', '2023-02-06'),
+(5, 5, 'CASH', '200.00', 'Approved', '2023-02-06'),
+(6, 6, 'CASH', '400.00', 'Approved', '2023-02-06');
 
 -- --------------------------------------------------------
 
@@ -317,10 +323,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`) VALUES
-(2, 1, 'Break Pads', '410.00', '500.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, praesentium autem hic amet voluptatum eos, asperiores quo voluptates officiis temporibus, esse assumenda corporis fugit architecto vitae reiciendis laborum odio quibusdam.', 'Brake Pads_1675087042421.webp', 5),
-(6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 10),
-(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 15),
-(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 15);
+(2, 1, 'Break Pads', '410.00', '500.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, praesentium autem hic amet voluptatum eos, asperiores quo voluptates officiis temporibus, esse assumenda corporis fugit architecto vitae reiciendis laborum odio quibusdam.', 'Brake Pads_1675087042421.webp', 4),
+(6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 6),
+(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 14),
+(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 5);
 
 -- --------------------------------------------------------
 
@@ -387,7 +393,10 @@ INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VA
 (9, 2, 8, 2),
 (10, 2, 7, 1),
 (11, 3, 8, 2),
-(12, 3, 6, 2);
+(12, 3, 6, 2),
+(13, 4, 2, 1),
+(14, 5, 8, 1),
+(15, 6, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -414,7 +423,8 @@ INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `phonenum`, `passwo
 (6, 'asd', 'asd', 'asd@example.com', 'asd', '$2b$10$.q3COO.7SKNRSgmHOL7wZ.SIwhOYhV3JDMDZaX/xC4OXGKQZsPow2'),
 (7, 'Tim Mc Key', 'timmckey', 'timmckey@gmail.com', '09123456789', '$2b$10$wTH4Zina4RqydNkOox9JleJM1nFJG.bbYrrvA7bxF2HZfI2UfZtlm'),
 (8, 'Juana Change', 'juana', 'juanachange@yahoo.com', '09123456789', '$2b$10$0q7DjzOLtgq0D7GHOiBDq.wXaVt5YoujEbpwi5hiBdg1XYyyKz4WG'),
-(11, 'Guest', 'Guest', 'guest@example.com', '09123456789', '$2b$10$BQNjap33KrwtFmnfKSVG0..BkrmLwU8MGjmchm5JRSSLV./HB2Spy');
+(11, 'Guest', 'Guest', 'guest@example.com', '09123456789', '$2b$10$BQNjap33KrwtFmnfKSVG0..BkrmLwU8MGjmchm5JRSSLV./HB2Spy'),
+(12, 'newuser', 'newuser', 'newuser@example.com', '09123456789', '$2b$10$0p0McGgm7y.Dfo3BfRUB.uwBgV8Ej1inzmu/o9MCkiyElVCXhc9C.');
 
 --
 -- Indexes for dumped tables
@@ -541,7 +551,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `carousels`
@@ -595,13 +605,13 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `placedorders`
 --
 ALTER TABLE `placedorders`
-  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -625,13 +635,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
