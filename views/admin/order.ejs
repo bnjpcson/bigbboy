@@ -6,12 +6,10 @@
 <script>
     $(document).ready(function() {
         $('#pendingTable').dataTable();
-    });
-    $(document).ready(function() {
         $('#canceledTable').dataTable();
-    });
-    $(document).ready(function() {
-        $('#approvedTable').dataTable();
+        $('#acceptedTable').dataTable();
+        $('#declinedTable').dataTable();
+        $('#completedTable').dataTable();
     });
 </script>
 
@@ -67,8 +65,6 @@
                                               <td class="text-warning"><%= element.PO_status %></td>
                                               <td class="">
                                                   <a class="link-primary nav-link" href="/admin/orders/view/<%= element.place_orderid%>"><i class="fas fa-eye fa-fw"></i>View</a>
-                                                  <a class="link-success nav-link" href="/admin/orders/accept/<%= element.place_orderid%>"><i class="fas fa-check fa-fw"></i>Approve</a>
-                                                  <a class="link-danger nav-link" href="/admin/orders/cancel/<%= element.place_orderid%>"><i class="fas fa-trash fa-fw"></i>Cancel</a>
                                               </td>
                                           </tr>
                                        <% }) %>
@@ -82,6 +78,53 @@
 
                 </div>
 
+                <!-- Accepted orders -->
+                <div class="container my-5">
+                  <!-- Page Heading -->
+
+                  <div class="container border-warning border-start border-1 mb-3">
+                      <h1 class="h3">Accepted Orders</h1>
+                  </div>
+
+                  <!-- DataTales Example -->
+                  <div class="card shadow mb-4">
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table" id="acceptedTable" width="100%" cellspacing="0">
+                                  <thead>
+                                      <tr>
+                                          <th>Order ID</th>
+                                          <th>Customer Name</th>
+                                          <th>Date Ordered</th>
+                                          <th>Amount</th>
+                                          <th>Payment Method</th>
+                                          <th>Status</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <% if (acceptedPlacedOrders != "") { %>
+                                       <% acceptedPlacedOrders.forEach(element => { %>
+                                          <tr>
+                                              <td><%= element.place_orderid%></td>
+                                              <td><%= element.name%></td>
+                                              <td><%= element.date.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date.getFullYear() %></td>
+                                              <td>₱ <%= element.totalprice.toFixed(2)%></td>
+                                              <td><%= element.p_method%></td>
+                                              <td class="text-success"><%= element.PO_status %></td>
+                                              <td class="">
+                                                  <a class="link-primary nav-link" href="/admin/orders/view/<%= element.place_orderid%>"><i class="fas fa-eye fa-fw"></i>View</a>
+                                              </td>
+                                          </tr>
+                                       <% }) %>
+                                      <% } %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
 
                 <!-- Canceled orders -->
                 <div class="container my-5">
@@ -133,19 +176,19 @@
                 </div>
 
 
-                <!-- Approved orders -->
+                <!-- Declined orders -->
                 <div class="container my-5">
                   <!-- Page Heading -->
 
                   <div class="container border-warning border-start border-1 mb-3">
-                      <h1 class="h3">Approved Orders</h1>
+                      <h1 class="h3">Declined Orders</h1>
                   </div>
 
                   <!-- DataTales Example -->
                   <div class="card shadow mb-4">
                       <div class="card-body">
                           <div class="table-responsive">
-                              <table class="table" id="approvedTable" width="100%" cellspacing="0">
+                              <table class="table" id="declinedTable" width="100%" cellspacing="0">
                                   <thead>
                                       <tr>
                                           <th>Order ID</th>
@@ -158,8 +201,57 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      <% if (approvedPlacedOrders != "") { %>
-                                       <% approvedPlacedOrders.forEach(element => { %>
+                                      <% if (declinedPlacedOrders != "") { %>
+                                       <% declinedPlacedOrders.forEach(element => { %>
+                                          <tr>
+                                              <td><%= element.place_orderid%></td>
+                                              <td><%= element.name%></td>
+                                              <td><%= element.date.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date.getFullYear() %></td>
+                                              <td>₱ <%= element.totalprice.toFixed(2)%></td>
+                                              <td><%= element.p_method%></td>
+                                              <td class="text-danger"><%= element.PO_status %></td>
+                                              <td class="">
+                                                  <a class="link-primary nav-link" href="/admin/orders/view/<%= element.place_orderid%>"><i class="fas fa-eye fa-fw"></i>View</a>
+                                              </td>
+                                          </tr>
+                                       <% }) %>
+                                      <% } %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+
+
+                <!-- Completed orders -->
+                <div class="container my-5">
+                  <!-- Page Heading -->
+
+                  <div class="container border-warning border-start border-1 mb-3">
+                      <h1 class="h3">Completed Orders</h1>
+                  </div>
+
+                  <!-- DataTales Example -->
+                  <div class="card shadow mb-4">
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table" id="completedTable" width="100%" cellspacing="0">
+                                  <thead>
+                                      <tr>
+                                          <th>Order ID</th>
+                                          <th>Customer Name</th>
+                                          <th>Date Ordered</th>
+                                          <th>Amount</th>
+                                          <th>Payment Method</th>
+                                          <th>Status</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <% if (completedPlacedOrders != "") { %>
+                                       <% completedPlacedOrders.forEach(element => { %>
                                           <tr>
                                               <td><%= element.place_orderid%></td>
                                               <td><%= element.name%></td>
@@ -173,7 +265,6 @@
                                           </tr>
                                        <% }) %>
                                       <% } %>
-                                      
                                   </tbody>
                               </table>
                           </div>
@@ -195,7 +286,11 @@
                     </script>
   
                     <!-- Modal -->
-                  <div class="modal fade" onclick="hideModal()" id="viewOrderModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                  <div class="modal fade" 
+                  <% if (viewOrder[0].PO_status != "Pending") { %>
+                    onclick="hideModal()"
+                  <% } %>
+                  id="viewOrderModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                       <div class="modal-content">
                           <div class="modal-header">
@@ -204,13 +299,13 @@
                             </div>
                             <div class="col-6 text-end">
                               Status: 
-                              <% if (viewOrder[0].PO_status == "Canceled") { %>
+                              <% if (viewOrder[0].PO_status == "Canceled" || viewOrder[0].PO_status == "Declined") { %>
                               <span class="bg-danger p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                               <% } %>
                               <% if (viewOrder[0].PO_status == "Pending") { %>
                                 <span class="bg-warning p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                               <% } %>
-                              <% if (viewOrder[0].PO_status == "Approved") { %>
+                              <% if (viewOrder[0].PO_status == "Accepted" || viewOrder[0].PO_status == "Completed") { %>
                                 <span class="bg-success p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                               <% } %>
                             </div>
@@ -279,11 +374,24 @@
                             </div>
                           </div>
                         </div>
+                        <% if (viewOrder[0].PO_status == "Pending") { %>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="/user/orders/decline/<%= viewOrder[0].place_orderid %>" class="btn btn-danger"><i class="fas fa-times fa-fw"></i> Decline</a> 
+                            <a class="btn btn-success" href="/admin/orders/accept/<%= viewOrder[0].place_orderid%>"><i class="fas fa-check fa-fw"></i> Accept</a>
+                          </div>
+                        <% } %>
+                        <% if (viewOrder[0].PO_status == "Accepted") { %>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-success" href="/admin/orders/complete/<%= viewOrder[0].place_orderid%>"><i class="fas fa-check fa-fw"></i> Complete</a>
+                          </div>
+                        <% } %>
                       </div>
                     </div>
                   </div>
   
-                  <% } %>
+                <% } %>
 
             </div>
 

@@ -98,6 +98,9 @@ router.post("/admin/products/add-product", productController.uploadImage, produc
 router.get("/admin/products/:op/:id", productController.getProducts);
 router.post("/admin/products/edit-product/", productController.uploadImage, productController.postEditProduct);
 router.post("/admin/products/delete-product/", productController.postDeleteProduct);
+router.post("/admin/products/add-stock/", productController.postAddStock);
+
+
 
 //manage accounts
 router.get("/admin/accounts", accountController.getAccounts);

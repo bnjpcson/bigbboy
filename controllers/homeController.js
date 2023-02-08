@@ -12,6 +12,7 @@ const getHome = async (req, res)=>{
             latestProd.push(element);
         }
     }
+    
 
     if(req.session.usertype == "USER"){
         res.render("users/index", {title: "Bigbboy", success, error, latestProd});

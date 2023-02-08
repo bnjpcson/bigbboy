@@ -6,26 +6,27 @@
     
 
     <style>
-        .service_hi{
-            background-image: url("/images/bigbboy/bg2.png");
+      .service_hi{
+          background-image: url("/images/bigbboy/bg2.png");
 
-            background-position: center;
-            background-size: cover;
-        }
-       
-    </style>
+          background-position: center;
+          background-size: cover;
+      }
+     
+  </style>
 
-    <div class="container-fluid service_hi" style="height: 250px">     
-        
-        <div class="row">
-            <div class="col">
-                <h1 class="ser-title">Products</h1>
-            </div>
-        </div>
-    </div>
+  <div class="container-fluid service_hi" style="height: 350px">     
+      
+      <!-- <div class="row">
+          <div class="col">
+              <h1 class="ser-title">Products</h1>
+          </div>
+      </div> -->
+  </div>
      <!-- Section Products-->
  <section class="py-5">
 
+  <div class="container">
     <div class="row">
         <div class="col">
             <hr class="page-hr mb-2">
@@ -33,34 +34,52 @@
             <hr class="page-hr mt-2">
         </div>
     </div>
+  </div>
 
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <% if (data != "") { %>
-            <% data.forEach(element => { %>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <a href="/view-product/<%= element.prod_id %>">
-                        <!-- Product image-->
-                        <img class="card-img-top p-2 bg-light" style="height: 200px;" src="images/products/<%= element.imgpath %> " alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4" style="height: 8rem;">
-                            <div class="text-center">
-                                    <span class="product-title"><%= element.prod_name %></span>
-                                    <br><br>
-                                    <span class="product-price">Php <%= element.prod_srp.toFixed(2) %></span>
-                                </div>
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <% if (data != "") { %>
+        <% data.forEach(element => { %>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <a href="/view-product/<%= element.prod_id %>">
+                    <!-- Product image-->
+                    <img class="card-img-top p-2 bg-light" style="height: 200px;" src="images/products/<%= element.imgpath %> " alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4" style="height: 8rem;">
+                        <div class="text-center">
+                                <span class="product-title"><%= element.prod_name %></span>
+                                <br><br>
+                                <span class="product-price">Php <%= element.prod_srp.toFixed(2) %></span>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
-            <% }) %>
-            <% } %>
-            
+            </div>
+        <% }) %>
+        <% } %>
         
-            
-        </div>
+    
+        
     </div>
+
+    <!-- <div class="mx-auto text-center">
+        <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+        </ul>
+    </nav>
+    </div> -->
+    
+</div>
 </section>
 
     
@@ -74,8 +93,8 @@
 
     <div class="row text-center text-lg-start">
   
-      <div class="col-lg-3 col-md-4 col-4">
-        <a href="#" class="d-block mb-4 h-100">
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-6 h-100">
           <img class="img-fluid img-thumbnail" src="images/bigbboy/IMG-0748.jpg" alt="">
         </a>
       </div>

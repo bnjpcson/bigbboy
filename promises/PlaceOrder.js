@@ -1,16 +1,16 @@
 const dbcon = require('../db/conn.js');
 
-const DBgetPlaceOrders = async () => {
-    return new Promise((resolve, reject)=>{
-        let sql = 'SELECT * FROM placedorders WHERE status = ?';
-        dbcon.query(sql, ["Pending"], (error, elements)=>{
-            if(error){
-                return reject(error);
-            }
-            return resolve(elements);
-        });
-    });
-}
+// const DBgetPlaceOrders = async () => {
+//     return new Promise((resolve, reject)=>{
+//         let sql = 'SELECT * FROM placedorders WHERE status = ?';
+//         dbcon.query(sql, ["Pending"], (error, elements)=>{
+//             if(error){
+//                 return reject(error);
+//             }
+//             return resolve(elements);
+//         });
+//     });
+// }
 
 const DBgetPendingPlaceOrders = async () => {
     return new Promise((resolve, reject)=>{
@@ -36,10 +36,10 @@ const DBgetCanceledPlaceOrders = async () => {
     });
 }
 
-const DBgetApprovedPlaceOrders = async () => {
+const DBgetPlaceOrders = async (status) => {
     return new Promise((resolve, reject)=>{
         let sql = 'SELECT *, placedorders.status AS PO_status FROM placedorders INNER JOIN orders ON placedorders.order_id = orders.order_id INNER JOIN users ON orders.user_id = users.user_id WHERE placedorders.status = ?';
-        dbcon.query(sql, ["Approved"], (error, elements)=>{
+        dbcon.query(sql, [status], (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -47,6 +47,8 @@ const DBgetApprovedPlaceOrders = async () => {
         });
     });
 }
+
+
 
 const DBgetUserPlaceOrders = async (user_id) => {
     return new Promise((resolve, reject)=>{
@@ -112,10 +114,10 @@ const DBcancelPlaceOrder = async (order_id) => {
     });
 }
 
-const DBapprovePlaceOrder = async (order_id) => {
+const DBsetStatusPlaceOrder = async (status, place_orderid) => {
     return new Promise((resolve, reject)=>{
         let sql = 'UPDATE placedorders SET status = ? WHERE place_orderid = ?';
-        dbcon.query(sql, ["Approved", order_id], (error, elements)=>{
+        dbcon.query(sql, [status, place_orderid], (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -126,8 +128,21 @@ const DBapprovePlaceOrder = async (order_id) => {
 
 const DBsoldProduct = async (quantity, prod_id) => {
     return new Promise((resolve, reject)=>{
-        let sql = 'UPDATE products SET qty = (qty - ?) WHERE prod_id = ?';
+        let sql = 'UPDATE products SET sold = ? WHERE prod_id = ?';
         dbcon.query(sql, [quantity, prod_id], (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
+const DBcompleteOrder = async (place_orderid) => {
+    let date = new Date();
+    return new Promise((resolve, reject)=>{
+        let sql = 'INSERT INTO transactions (place_orderid, date_completed) VALUES (?,?)';
+        dbcon.query(sql, [place_orderid, date], (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -139,16 +154,17 @@ const DBsoldProduct = async (quantity, prod_id) => {
 
 
 
+
 module.exports = {
     DBgetPlaceOrders,
     DBgetPendingPlaceOrders,
     DBgetCanceledPlaceOrders,
-    DBgetApprovedPlaceOrders,
     DBgetUserPlaceOrders,
     DBaddPlaceOrder,
     DBviewUserPlaceOrder,
     DBcancelPlaceOrder,
     DBgetAdminPlaceOrders,
-    DBapprovePlaceOrder,
-    DBsoldProduct
+    DBsetStatusPlaceOrder,
+    DBsoldProduct,
+    DBcompleteOrder
 }

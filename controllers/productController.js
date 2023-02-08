@@ -20,7 +20,7 @@ const storageMulter = multer({storage: storage});
 const uploadImage = storageMulter.single('image');
 
 const getProducts = async (req, res)=>{
-
+ 
     const id = req.params.id;
     const op = req.params.op;
     
@@ -30,11 +30,16 @@ const getProducts = async (req, res)=>{
 
     let selected = "";
     let selectedDel = "";
+    let selectedQuantity = "";
+
     if(id != "" && op == "edit-product"){
         selected = await ProductPromise.DBselectProduct(id);
     }
     if(id != "" && op == "delete-product"){
         selectedDel = await ProductPromise.DBselectProduct(id);
+    }
+    if(id != "" && op == "add-stock"){
+        selectedQuantity = await ProductPromise.DBselectProduct(id);
     }
 
    
@@ -53,7 +58,7 @@ const getProducts = async (req, res)=>{
     if(sessions.usertype == "USER"){
         res.render("users/products", {title: "Products", sessions, success, error, data, suppliers, selected, selectedDel});
     }else if(sessions.usertype == "ADMIN"){
-        res.render("admin/products", {title: "Products | Admin", sessions, success, error, data, suppliers, selected, selectedDel});
+        res.render("admin/products", {title: "Products | Admin", sessions, success, error, data, suppliers, selected, selectedDel, selectedQuantity});
     }else{
         res.render("products", {title: "Products", sessions, success, error, data, suppliers, selected, selectedDel});
     }
@@ -64,6 +69,7 @@ const postAddProduct = async (req, res)=>{
     const req_data = {
         supplier_id : req.body.supplier_id,
         prod_name : req.body.prod_name,
+        prod_desc : req.body.prod_desc,
         prod_price : req.body.prod_price,
         prod_srp : req.body.prod_srp,
         qty : req.body.qty,
@@ -88,9 +94,9 @@ const postEditProduct = async (req, res)=>{
         prod_id: req.body.prod_id,
         supplier_id : req.body.supplier_id,
         prod_name : req.body.prod_name,
+        prod_desc : req.body.prod_desc,
         prod_price : req.body.prod_price,
         prod_srp : req.body.prod_srp,
-        qty : req.body.qty,
         imgpath : "",
     };
     let selected = await ProductPromise.DBselectProduct(req_data.prod_id); 
@@ -167,11 +173,29 @@ const postDeleteProduct = async (req, res)=>{
     
 };
 
+const postAddStock = async (req, res)=>{
+
+    const prod_id = req.body.prod_id;
+    const qty = req.body.qty;
+
+    try {
+        await ProductPromise.DBupdateQuantity(prod_id, qty);  
+        req.flash("success", "Product's quantity saved successfully.");
+        res.redirect("/admin/products");
+    } catch (error) {
+        await req.flash("error", "Failed to edit quantity.");
+        res.redirect("/admin/products");
+    }
+   
+    
+};
+
 
 module.exports = {
     getProducts,
     uploadImage,
     postAddProduct,
     postEditProduct,
-    postDeleteProduct
+    postDeleteProduct,
+    postAddStock
 };

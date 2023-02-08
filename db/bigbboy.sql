@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 05:34 PM
+-- Generation Time: Feb 08, 2023 at 06:51 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -267,12 +267,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
-(1, 5, 'DONE', '2023-02-01'),
-(2, 4, 'DONE', '2023-02-02'),
-(3, 5, 'DONE', '2023-02-03'),
-(4, 5, 'DONE', '2023-02-06'),
-(5, 12, 'DONE', '2023-02-06'),
-(6, 5, 'DONE', '2023-02-06');
+(7, 5, 'DONE', '2023-02-08'),
+(8, 5, 'DONE', '2023-02-08'),
+(9, 5, 'DONE', '2023-02-08'),
+(10, 5, 'DONE', '2023-02-08'),
+(11, 5, 'DONE', '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -294,12 +293,11 @@ CREATE TABLE `placedorders` (
 --
 
 INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice`, `status`, `date`) VALUES
-(1, 1, 'CASH', '1000.00', 'Approved', '2023-02-02'),
-(2, 2, 'CASH', '550.00', 'Approved', '2023-02-02'),
-(3, 3, 'GCASH', '800.00', 'Approved', '2023-02-03'),
-(4, 4, 'CASH', '500.00', 'Approved', '2023-02-06'),
-(5, 5, 'CASH', '200.00', 'Approved', '2023-02-06'),
-(6, 6, 'CASH', '400.00', 'Approved', '2023-02-06');
+(7, 7, 'CASH', '500.00', 'Canceled', '2023-02-08'),
+(8, 8, 'CASH', '200.00', 'Completed', '2023-02-08'),
+(9, 9, 'CASH', '200.00', 'Declined', '2023-02-08'),
+(10, 10, 'CASH', '400.00', 'Completed', '2023-02-08'),
+(11, 11, 'CASH', '150.00', 'Accepted', '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -315,18 +313,20 @@ CREATE TABLE `products` (
   `prod_srp` decimal(18,2) NOT NULL,
   `prod_desc` varchar(255) NOT NULL,
   `imgpath` varchar(255) NOT NULL,
-  `qty` int(11) NOT NULL
+  `qty` int(11) NOT NULL,
+  `sold` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`) VALUES
-(2, 1, 'Break Pads', '410.00', '500.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, praesentium autem hic amet voluptatum eos, asperiores quo voluptates officiis temporibus, esse assumenda corporis fugit architecto vitae reiciendis laborum odio quibusdam.', 'Brake Pads_1675087042421.webp', 4),
-(6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 6),
-(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 14),
-(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 5);
+INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`, `sold`) VALUES
+(6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 20, 2),
+(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 1),
+(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 0),
+(10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 20, 0),
+(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 30, 2);
 
 -- --------------------------------------------------------
 
@@ -373,6 +373,26 @@ INSERT INTO `suppliers` (`supplier_id`, `supplier_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `trans_id` int(11) NOT NULL,
+  `place_orderid` int(11) NOT NULL,
+  `date_completed` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`trans_id`, `place_orderid`, `date_completed`) VALUES
+(1, 8, '2023-02-08'),
+(2, 10, '2023-02-08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userorders`
 --
 
@@ -388,15 +408,12 @@ CREATE TABLE `userorders` (
 --
 
 INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VALUES
-(6, 1, 8, 3),
-(8, 1, 6, 2),
-(9, 2, 8, 2),
-(10, 2, 7, 1),
-(11, 3, 8, 2),
-(12, 3, 6, 2),
-(13, 4, 2, 1),
-(14, 5, 8, 1),
-(15, 6, 8, 2);
+(16, 7, 11, 2),
+(17, 7, 7, 2),
+(18, 8, 11, 2),
+(19, 9, 8, 1),
+(20, 10, 6, 2),
+(21, 11, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -524,6 +541,13 @@ ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`supplier_id`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`trans_id`),
+  ADD KEY `place_orderid` (`place_orderid`);
+
+--
 -- Indexes for table `userorders`
 --
 ALTER TABLE `userorders`
@@ -605,19 +629,19 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `placedorders`
 --
 ALTER TABLE `placedorders`
-  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -632,10 +656,16 @@ ALTER TABLE `suppliers`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -664,6 +694,12 @@ ALTER TABLE `placedorders`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`);
+
+--
+-- Constraints for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`place_orderid`) REFERENCES `placedorders` (`place_orderid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `userorders`

@@ -55,22 +55,20 @@
                                           <td><%= element.place_orderid %></td>
                                           <td><%= element.PO_date.getDate()  + "/" + (element.PO_date.getMonth()+1) + "/" + element.PO_date.getFullYear() %></td>
                                           <td><%= element.p_method %></td>
-                                          <td><%= element.totalprice.toFixed(2) %></td>
-                                          <% if (element.PO_status == "Canceled") { %>
+                                          <td>₱ <%= element.totalprice.toFixed(2) %></td>
+                                          <% if (element.PO_status == "Canceled" || element.PO_status == "Declined") { %>
                                             <td class="text-danger"><%= element.PO_status %></td>
                                           <% } %>
-                                          <% if (element.PO_status == "Approved") { %>
+                                          <% if (element.PO_status == "Accepted" || element.PO_status == "Completed") { %>
                                             <td class="text-success"><%= element.PO_status %></td>
                                           <% } %>
                                           <% if (element.PO_status == "Pending") { %>
                                             <td class="text-warning"><%= element.PO_status %></td>
                                           <% } %>
+                                          
                                           <td>
                                            
                                             <a href="/user/orders/view/<%= element.place_orderid %>" class="link-primary nav-link"><i class="fas fa-eye fa-fw"></i> View</a>
-                                            <% if (element.PO_status == "Pending") { %>
-                                              <a href="/user/orders/cancel/<%= element.place_orderid %>" class="link-danger nav-link"><i class="fas fa-eye fa-fw"></i> Cancel</a>  
-                                            <% } %>
                                             
                                           </td>
                                         </tr>
@@ -102,7 +100,7 @@
                   </script>
 
                   <!-- Modal -->
-                <div class="modal fade" onclick="hideModal()" id="viewOrderModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal fade" id="viewOrderModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -111,14 +109,14 @@
                           </div>
                           <div class="col-6 text-end">
                             Status: 
-                            <% if (viewOrder[0].PO_status == "Canceled") { %>
-                            <span class="bg-danger p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
+                            <% if (viewOrder[0].PO_status == "Canceled" || viewOrder[0].PO_status == "Declined") { %>
+                              <span class="bg-danger p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                             <% } %>
                             <% if (viewOrder[0].PO_status == "Pending") { %>
                               <span class="bg-warning p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                             <% } %>
-                            <% if (viewOrder[0].PO_status == "Approved") { %>
-                              <span class="bg-danger p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
+                            <% if (viewOrder[0].PO_status == "Accepted" || viewOrder[0].PO_status == "Completed") { %>
+                              <span class="bg-success p-1 text-white rounded"><%= viewOrder[0].PO_status %></span>
                             <% } %>
                           </div>
                         </div>
@@ -186,6 +184,15 @@
                           </div>
                         </div>
                       </div>
+                      <% if (viewOrder[0].PO_status == "Pending") { %>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <a href="/user/orders/cancel/<%= viewOrder[0].place_orderid %>" class="btn btn-danger"><i class="fas fa-trash fa-fw"></i> Cancel Order</a> 
+                          
+                        </div>
+                      <% } %>
+                      
+
                     </div>
                   </div>
                 </div>

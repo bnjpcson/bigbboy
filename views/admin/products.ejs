@@ -79,9 +79,12 @@
                                             <th></th>
                                             <th>Supplier Name</th>
                                             <th>Product Name</th>
+                                            <th>Product Description</th>
                                             <th>Product Price</th>
                                             <th>Product SRP</th>
                                             <th>Quantity</th>
+                                            <th>Sold</th>
+                                            <th>Actual Quantity (Stocks)</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -94,9 +97,26 @@
                                             </td>
                                             <td><%= element.supplier_name %></td>
                                             <td><%= element.prod_name %></td>
+                                            <td><%= element.prod_desc %></td>
                                             <td><%= element.prod_price.toFixed(2) %></td>
                                             <td><%= element.prod_srp.toFixed(2) %></td>
                                             <td><%= element.qty %></td>
+                                            <td><%= element.sold %></td>
+                                            <td>
+                                                <a class="nav-link" href="/admin/products/add-stock/<%= element.prod_id %>">
+                                                <span 
+                                                <% if (element.stocks <= 10) { %>
+                                                    class="bg-danger text-white rounded p-1" 
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Product quantity is less than 10."
+                                                <% }else{ %>
+                                                    class="text-success rounded p-1" 
+                                                <% } %>
+                                                >
+                                                <%= element.stocks %>
+                                                </span>
+                                                </a>
+                                            </td>
+
                                             <td>
                                                 <a class="link" href="/admin/products/edit-product/<%= element.prod_id %>"><i class="fas fa-edit fa-fw text-warning"></i></a>
                                                 <a class="link" href="/admin/products/delete-product/<%= element.prod_id %>"><i class="fas fa-trash fa-fw text-danger"></i></a>
@@ -126,7 +146,7 @@
                 <form action="/admin/products/add-product" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="" class="form-label">Supplier</label>
+                            <label for="" class="form-label">Supplier<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <select class="form-select" name="supplier_id">
                                 <% if (suppliers != "") { %>
                                  <% suppliers.forEach(element => { %>
@@ -136,27 +156,31 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Product Name</label>
+                            <label for="" class="form-label">Product Name<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <input type="text" class="form-control" name="prod_name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Product Price</label>
+                            <label for="" class="form-label">Product Description<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
+                            <textarea name="prod_desc" id="" cols="30" rows="5" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Product Price<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <input type="number" class="form-control" name="prod_price" required>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Product SRP</label>
+                            <label for="" class="form-label">Product SRP<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <input type="number" class="form-control" name="prod_srp" required>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Quantity</label>
+                            <label for="" class="form-label">Quantity<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <input type="number" class="form-control" min="1" name="qty" required>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Image</label>
+                            <label for="" class="form-label">Image<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                             <input type="file" class="form-control" name="image" required>
                         </div>
                         
-                    </div>
+                    </div> 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Add</button>
@@ -188,7 +212,7 @@
                             <input type="hidden" name="prod_id" value="<%= selected[0].prod_id %>" required>
 
                             <div class="mb-3">
-                                <label for="" class="form-label">Supplier</label>
+                                <label for="" class="form-label">Supplier<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                                 <select class="form-select" name="supplier_id">
                                     <% if (suppliers != "") { %>
                                      <% suppliers.forEach(element => { %>
@@ -198,26 +222,76 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Product Name</label>
+                                <label for="" class="form-label">Product Name<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                                 <input type="text" class="form-control" name="prod_name" value="<%= selected[0].prod_name %>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Product Price</label>
+                                <label for="" class="form-label">Product Description<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
+                                <textarea name="prod_desc" id="" cols="30" rows="5" class="form-control" required><%= selected[0].prod_desc %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product Price<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                                 <input type="number" class="form-control" name="prod_price" value="<%= selected[0].prod_price.toFixed(2) %>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Product SRP</label>
+                                <label for="" class="form-label">Product SRP<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                                 <input type="number" class="form-control" name="prod_srp" value="<%= selected[0].prod_srp.toFixed(2) %>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="" class="form-label">Quantity</label>
-                                <input type="number" class="form-control" name="qty" min="1" value="<%= selected[0].qty %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Image</label>
+                                <label for="" class="form-label">Image<span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Required">*</span></label>
                                 <input type="file" class="form-control" name="image">
                             </div>
 
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <% } %>
+
+    <!-- ADD Stocks MODAL -->
+    <% if (selectedQuantity != "") { %>
+
+        <script>
+            $(document).ready(function() {
+                $("#addStockModal").modal("show");
+            });
+        </script>
+        
+        <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Edit Quantity</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/products/add-stock" method="post">
+                        <div class="modal-body">
+
+                            <input type="hidden" name="prod_id" value="<%= selectedQuantity[0].prod_id %>" required>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" value="<%= selectedQuantity[0].prod_name %>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Sold</label>
+                                <input type="number" class="form-control" value="<%= selectedQuantity[0].sold %>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Actual Quantity (Stocks)</label>
+                                <input type="number" class="form-control" value="<%= selectedQuantity[0].stocks %>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Quantity</label>
+                                <input type="number" min="<%= selectedQuantity[0].sold %>" class="form-control" value="<%= selectedQuantity[0].qty %>" name="qty" required>
+                            </div>
                             
                         </div>
                         <div class="modal-footer">

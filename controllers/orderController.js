@@ -36,9 +36,11 @@ const getOrder = async (req, res)=>{
 
     }else if(sessions.usertype == "ADMIN"){
 
-        let pendingPlacedOrders = await PlaceOrderPromise.DBgetPendingPlaceOrders();
-        let canceledPlacedOrders = await PlaceOrderPromise.DBgetCanceledPlaceOrders();
-        let approvedPlacedOrders = await PlaceOrderPromise.DBgetApprovedPlaceOrders();
+        let pendingPlacedOrders = await PlaceOrderPromise.DBgetPlaceOrders("Pending");
+        let canceledPlacedOrders = await PlaceOrderPromise.DBgetPlaceOrders("Canceled");
+        let acceptedPlacedOrders = await PlaceOrderPromise.DBgetPlaceOrders("Accepted");
+        let declinedPlacedOrders = await PlaceOrderPromise.DBgetPlaceOrders("Declined");
+        let completedPlacedOrders = await PlaceOrderPromise.DBgetPlaceOrders("Completed");
 
         let placedorder_id = req.params.placedorder_id;
         let op = req.params.op;
@@ -46,7 +48,6 @@ const getOrder = async (req, res)=>{
         let viewOrder = "";
         if(placedorder_id != "" && op == "view"){
             viewOrder = await PlaceOrderPromise.DBviewUserPlaceOrder(placedorder_id);
-            console.log(viewOrder);
         }
         if(placedorder_id != "" && op == "accept"){
 
@@ -61,18 +62,24 @@ const getOrder = async (req, res)=>{
                 return;
             }
             
-            await PlaceOrderPromise.DBapprovePlaceOrder(placedorder_id);
+            await PlaceOrderPromise.DBsetStatusPlaceOrder("Accepted",placedorder_id);
 
             res.redirect("/admin/orders");
             return;
         }
-        if(placedorder_id != "" && op == "cancel"){
-            await PlaceOrderPromise.DBcancelPlaceOrder(placedorder_id);
+        if(placedorder_id != "" && op == "decline"){
+            await PlaceOrderPromise.DBsetStatusPlaceOrder("Declined",placedorder_id);
+            res.redirect("/admin/orders");
+            return;
+        }
+        if(placedorder_id != "" && op == "complete"){
+            await PlaceOrderPromise.DBsetStatusPlaceOrder("Completed",placedorder_id);
+            await PlaceOrderPromise.DBcompleteOrder(placedorder_id);
             res.redirect("/admin/orders");
             return;
         }
 
-        res.render("admin/order", {title: "Orders | Admin", sessions, pendingPlacedOrders, canceledPlacedOrders, approvedPlacedOrders, viewOrder});
+        res.render("admin/order", {title: "Orders | Admin", sessions, pendingPlacedOrders, canceledPlacedOrders, acceptedPlacedOrders, declinedPlacedOrders, completedPlacedOrders, viewOrder});
 
     }else{
         res.redirect("/");
