@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 06:51 PM
+-- Generation Time: Feb 09, 2023 at 06:38 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -271,7 +271,10 @@ INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
 (8, 5, 'DONE', '2023-02-08'),
 (9, 5, 'DONE', '2023-02-08'),
 (10, 5, 'DONE', '2023-02-08'),
-(11, 5, 'DONE', '2023-02-09');
+(11, 5, 'DONE', '2023-02-09'),
+(12, 5, 'DONE', '2023-02-09'),
+(13, 5, 'DONE', '2023-02-09'),
+(14, 4, 'DONE', '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -297,7 +300,10 @@ INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice
 (8, 8, 'CASH', '200.00', 'Completed', '2023-02-08'),
 (9, 9, 'CASH', '200.00', 'Declined', '2023-02-08'),
 (10, 10, 'CASH', '400.00', 'Completed', '2023-02-08'),
-(11, 11, 'CASH', '150.00', 'Accepted', '2023-02-09');
+(11, 11, 'CASH', '150.00', 'Completed', '2023-02-09'),
+(12, 12, 'CASH', '600.00', 'Completed', '2023-02-09'),
+(13, 13, 'GCASH', '250.00', 'Declined', '2023-02-09'),
+(14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -324,9 +330,9 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`, `sold`) VALUES
 (6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 20, 2),
 (7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 1),
-(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 0),
-(10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 20, 0),
-(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 30, 2);
+(8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 2),
+(10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 20, 1),
+(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 30, 1);
 
 -- --------------------------------------------------------
 
@@ -388,7 +394,10 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`trans_id`, `place_orderid`, `date_completed`) VALUES
 (1, 8, '2023-02-08'),
-(2, 10, '2023-02-08');
+(2, 10, '2023-02-08'),
+(3, 11, '2023-02-09'),
+(4, 12, '2023-02-09'),
+(5, 14, '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -413,7 +422,13 @@ INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VA
 (18, 8, 11, 2),
 (19, 9, 8, 1),
 (20, 10, 6, 2),
-(21, 11, 7, 1);
+(21, 11, 7, 1),
+(22, 12, 11, 2),
+(23, 12, 8, 2),
+(24, 13, 11, 1),
+(25, 13, 10, 1),
+(26, 14, 11, 1),
+(27, 14, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -437,7 +452,6 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `phonenum`, `password`) VALUES
 (4, 'Benjie Pecson', 'bnjpcson', 'bnjpcson@example.com', '09123456789', '$2b$10$R3Be.QHtE6Cpl/LRui7sJehJ8KVM2wVoctS2kZkyLamPko0OTT/fK'),
 (5, 'John Doe', 'admin', 'johndoe@example.com', '09123456789', '$2b$10$e6miw6pFTn1KgKmrxoszMe.9h3vxQ9K2jsOSm2jb0l2EDecQxqSeq'),
-(6, 'asd', 'asd', 'asd@example.com', 'asd', '$2b$10$.q3COO.7SKNRSgmHOL7wZ.SIwhOYhV3JDMDZaX/xC4OXGKQZsPow2'),
 (7, 'Tim Mc Key', 'timmckey', 'timmckey@gmail.com', '09123456789', '$2b$10$wTH4Zina4RqydNkOox9JleJM1nFJG.bbYrrvA7bxF2HZfI2UfZtlm'),
 (8, 'Juana Change', 'juana', 'juanachange@yahoo.com', '09123456789', '$2b$10$0q7DjzOLtgq0D7GHOiBDq.wXaVt5YoujEbpwi5hiBdg1XYyyKz4WG'),
 (11, 'Guest', 'Guest', 'guest@example.com', '09123456789', '$2b$10$BQNjap33KrwtFmnfKSVG0..BkrmLwU8MGjmchm5JRSSLV./HB2Spy'),
@@ -629,13 +643,13 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `placedorders`
 --
 ALTER TABLE `placedorders`
-  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -659,13 +673,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -2,15 +2,64 @@ const dbcon = require('../db/conn.js');
 
 const DBgetSales = async () => {
     return new Promise((resolve, reject)=>{
-        let sql = 'SELECT *, placedorders.status AS PO_status  FROM placedorders INNER JOIN orders ON placedorders.order_id = orders.order_id INNER JOIN userorders ON orders.order_id = userorders.order_id INNER JOIN products ON userorders.prod_id = products.prod_id INNER JOIN users ON orders.user_id = users.user_id WHERE placedorders.status = ?';
-        dbcon.query(sql, ['Completed'], (error, elements)=>{
+        let sql = 'SELECT *,orders.order_id AS IDorder_id, (SELECT SUM(products.prod_price * userorders.quantity) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS purchasePrice, (SELECT SUM(products.prod_srp * userorders.quantity) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS totalPrice, (SELECT (SUM(products.prod_srp * userorders.quantity) - SUM(products.prod_price * userorders.quantity)) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS netIncome FROM transactions  INNER JOIN placedorders ON transactions.place_orderid = placedorders.place_orderid  INNER JOIN orders ON placedorders.order_id = orders.order_id  INNER JOIN users ON orders.user_id = users.user_id';
+        dbcon.query(sql, (error, elements)=>{
             if(error){
                 return reject(error);
-            }
+            } 
             return resolve(elements);
         });
     });
 }
+
+const DBselectSale = async (order_id) => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT *,(quantity*prod_srp) AS totalPrice, (quantity*prod_price) AS purchasePrice, ((quantity*prod_srp)-(quantity*prod_price)) AS netIncome FROM transactions INNER JOIN placedorders ON transactions.place_orderid = placedorders.place_orderid INNER JOIN orders ON placedorders.order_id = orders.order_id INNER JOIN users ON orders.user_id = users.user_id INNER JOIN userorders ON orders.order_id = userorders.order_id INNER JOIN products ON userorders.prod_id = products.prod_id WHERE orders.order_id = ?';
+        dbcon.query(sql, [order_id], (error, elements)=>{
+            if(error){
+                return reject(error);
+            } 
+            return resolve(elements);
+        });
+    });
+}
+
+const DBgetTotalEarnings = async () => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT *,orders.order_id AS IDorder_id, (SELECT SUM(products.prod_price * userorders.quantity) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS purchasePrice, (SELECT SUM(products.prod_srp * userorders.quantity) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS totalPrice, (SELECT (SUM(products.prod_srp * userorders.quantity) - SUM(products.prod_price * userorders.quantity)) FROM userorders INNER JOIN products ON userorders.prod_id = products.prod_id WHERE userorders.order_id = IDorder_id) AS netIncome FROM transactions  INNER JOIN placedorders ON transactions.place_orderid = placedorders.place_orderid  INNER JOIN orders ON placedorders.order_id = orders.order_id  INNER JOIN users ON orders.user_id = users.user_id';
+        dbcon.query(sql, (error, elements)=>{
+            if(error){
+                return reject(error);
+            } 
+            return resolve(elements);
+        });
+    });
+}
+
+
+// const DBgetSales = async () => {
+//     return new Promise((resolve, reject)=>{
+//         let sql = 'SELECT *,(quantity*prod_srp) AS totalPrice, (quantity*prod_price) AS purchasePrice, ((quantity*prod_srp)-(quantity*prod_price)) AS netIncome FROM transactions INNER JOIN placedorders ON transactions.place_orderid = placedorders.place_orderid INNER JOIN orders ON placedorders.order_id = orders.order_id INNER JOIN users ON orders.user_id = users.user_id INNER JOIN userorders ON orders.order_id = userorders.order_id INNER JOIN products ON userorders.prod_id = products.prod_id';
+//         dbcon.query(sql, (error, elements)=>{
+//             if(error){
+//                 return reject(error);
+//             } 
+//             return resolve(elements);
+//         });
+//     });
+// }
+
+// const DBgetSales = async () => {
+//     return new Promise((resolve, reject)=>{
+//         let sql = 'SELECT *, placedorders.status AS PO_status  FROM placedorders INNER JOIN orders ON placedorders.order_id = orders.order_id INNER JOIN userorders ON orders.order_id = userorders.order_id INNER JOIN products ON userorders.prod_id = products.prod_id INNER JOIN users ON orders.user_id = users.user_id WHERE placedorders.status = ?';
+//         dbcon.query(sql, ['Completed'], (error, elements)=>{
+//             if(error){
+//                 return reject(error);
+//             }
+//             return resolve(elements);
+//         });
+//     });
+// }
 
 
 // const DBselectLastOrder = async (user_id) => {
@@ -54,4 +103,5 @@ const DBgetSales = async () => {
 
 module.exports = {
     DBgetSales,
+    DBselectSale
 }

@@ -1,9 +1,16 @@
 const dbcon = require('../db/conn.js');
 const bcrypt = require('bcrypt');
+const SalesPromise = require('../promises/Sales.js');
+const AccountPromise = require('../promises/Account.js');
+const OrderPromise = require('../promises/Order.js');
+const PlaceOrderPromise = require('../promises/PlaceOrder.js');
+
+
+
 const randtoken = require('rand-token');
 const saltRounds = 10;
 
-const getAdmin = (req, res)=>{
+const getAdmin = async (req, res)=>{
 
     let sessions = {
         id : req.session.id,
@@ -19,7 +26,36 @@ const getAdmin = (req, res)=>{
     if(sessions.usertype == "USER"){
         res.redirect("/");
     }else if(sessions.usertype == "ADMIN"){
-        res.render("admin/index", {title: "Dashboard | Admin", sessions, success, error});
+
+        let salesReport = await SalesPromise.DBgetSales();
+        let users = await AccountPromise.DBgetUsers();
+        let orders = await OrderPromise.DBgetOrders();
+        let reqOrders = await PlaceOrderPromise.DBgetPlaceOrders("Pending");
+
+
+        let totalEarnings = 0;
+        let totalUsers = 0;
+        let totalOrders = 0;
+        let totalRequest = 0;
+
+
+
+        if(salesReport != ""){
+            salesReport.forEach(element => {
+                totalEarnings+=element.totalPrice;
+            });
+        }
+        if(users != ""){
+            totalUsers = users.length;
+        }
+        if(orders != ""){
+            totalOrders = orders.length;
+        }
+        if(reqOrders != ""){
+            totalRequest = reqOrders.length;
+        }
+
+        res.render("admin/index", {title: "Dashboard | Admin", sessions, success, error, totalEarnings, totalUsers, totalOrders, totalRequest});
     }else{
         res.redirect("/admin/login")
     }

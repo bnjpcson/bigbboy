@@ -25,17 +25,17 @@
                 <%- include("./partials/topbar.ejs") %> 
 
                 <!-- Begin Page Content -->
-                <div class="container my-5">
+                <!-- <div class="container my-5"> -->
 
                     
 
                     <!-- Page Heading -->
 
-                    <div class="container border-warning border-start border-1 mb-3">
+                    <!-- <div class="container border-warning border-start border-1 mb-3">
                         <h1 class="h3">Sales Report</h1>
-                    </div>
+                    </div> -->
 
-                    <div class="container">
+                    <!-- <div class="container">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="card shadow mb-4">
@@ -78,9 +78,9 @@
                                                 <div class="">
                                                     <label for="" class="form-label">Product</label>
                                                     <select class="form-select" name="" id="">
-                                                        <% products.forEach(element => { %>
-                                                            <option value=""><%= element.prod_name %></option>
-                                                        <% }) %>
+                                                        <%// products.forEach(element => { %>
+                                                            <option value=""><%= //element.prod_name %></option>
+                                                        <%// }) %>
                                                     </select>
                                                 </div>
                                             </div>
@@ -108,9 +108,9 @@
                                                 <div class="">
                                                     <label for="" class="form-label">Customer</label>
                                                     <select class="form-select" name="" id="">
-                                                        <% customers.forEach(element => { %>
-                                                            <option value=""><%= element.name %></option>
-                                                        <% }) %>
+                                                        <%// customers.forEach(element => { %>
+                                                            <option value=""><%=// element.name %></option>
+                                                        <%// }) %>
                                                     </select>
                                                 </div>
                                             </div>
@@ -125,10 +125,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                    
 
-                </div>
+                <!-- </div> -->
                 <!-- /.container-fluid -->
 
                 <div class="container my-5">
@@ -150,9 +150,10 @@
                                                         <th>Order ID</th>
                                                         <th>Customer Name</th>
                                                         <th>Date Ordered</th>
-                                                        <th>Amount</th>
+                                                        <th>Total Purchase Price</th>
+                                                        <th>Total Price</th>
+                                                        <th>Net Income</th>
                                                         <th>Payment Method</th>
-                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -162,12 +163,13 @@
                                                         <tr>
                                                             <td><%= element.place_orderid%></td>
                                                             <td><%= element.name%></td> 
-                                                            <td><%= element.date.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date.getFullYear() %></td>
-                                                            <td>₱ <%= element.totalprice.toFixed(2)%></td>
+                                                            <td><%= element.date_completed.getDate()  + "/" + (element.date_completed.getMonth()+1) + "/" + element.date_completed.getFullYear() %></td>
+                                                            <td>₱ <%= element.purchasePrice.toFixed(2) %></td>
+                                                            <td>₱ <%= element.totalPrice.toFixed(2) %></td>
+                                                            <td>₱ <%= element.netIncome.toFixed(2) %></td>
                                                             <td><%= element.p_method%></td>
-                                                            <td class="text-success"><%= element.PO_status %></td>
                                                             <td class="">
-                                                                <a class="link-primary nav-link" href="/admin/orders/view/<%= element.place_orderid%>"><i class="fas fa-eye fa-fw"></i>View</a>
+                                                                <a class="link-primary nav-link" href="/admin/sales/view/<%= element.order_id%>"><i class="fas fa-eye fa-fw"></i>View</a>
                                                             </td>
                                                         </tr>
                                                      <% }) %>
@@ -195,23 +197,76 @@
   
                     <!-- Modal -->
                   <div class="modal fade" id="summaryModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                       <div class="modal-content">
                           <div class="modal-header">
                             <div class="col-6">
                               <h5 class="modal-title" id="modalTitleId">Sales Summary</h5>
                             </div>
                             <div class="col-6 text-end">
-                              Date: 
-                        
+                              Date: <span><%= salesSummary[0].date_completed.getDate()  + "/" + (salesSummary[0].date_completed.getMonth()+1) + "/" + salesSummary[0].date_completed.getFullYear() %></span>
                             </div>
                           </div>
                         <div class="modal-body">
                           <div class="container-fluid">
-                            <div class="row">
-                              <div class="col-12 text-end">
-                                
+                            <div class="row mb-3">
+                              <div class="col-2">
+                                <span>Customer Name: </span>
                               </div>
+                              <div class="col-3">
+                                <span class="fw-bold"><%= salesSummary[0].name %></span>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-2">
+                                  <span>Payment Method: </span>
+                                </div>
+                                <div class="col-3">
+                                  <span class="fw-bold"><%= salesSummary[0].p_method %></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                  <table class="table table-borderless">
+                                    <thead>
+                                        <tr class="border-top border-bottom">
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>SRP</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% 
+                                    let subtotal = 0;    
+                                    %>
+                                    <% salesSummary.forEach(element => { %>
+                                        <% subtotal+= element.totalPrice; %>
+                                        <tr>
+                                            <td><%= element.prod_name %></td>
+                                            <td><%= element.quantity %></td>
+                                            <td>₱ <%= element.prod_srp.toFixed(2) %></td>
+                                            <td>₱ <%= (element.prod_srp*element.quantity).toFixed(2) %></td>
+                                        </tr>
+                                    <% }) %>
+                                    <tr class="border-top">
+                                        <td colspan="2"></td>
+                                        <td class="pt-4 align-middle text-end fw-bold">SUBTOTAL</td>
+                                        <td class="pt-4">₱ <%= subtotal.toFixed(2) %></td>
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="2"></td>
+                                        <td class=" align-middle text-end fw-bold">DISCOUNT (AMOUNT)</td>
+                                        <td class="">₱ 0.00</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="2"></td>
+                                        <td class=" align-middle text-end fw-bold">TOTAL</td>
+                                        <td class="">₱ <%= subtotal.toFixed(2) %></td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                             </div>
 
   

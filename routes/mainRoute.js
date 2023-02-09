@@ -84,6 +84,8 @@ router.get("/admin/transactions", transactionsController.getTransactions);
 
 //sales report
 router.get("/admin/sales", salesController.getSales);
+router.get("/admin/sales/:op/:order_id", salesController.getSales);
+
 
 //suppliers
 router.get("/admin/suppliers", suppliersController.getSuppliers);

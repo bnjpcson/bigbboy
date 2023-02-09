@@ -2,6 +2,8 @@ const express = require('express');
 const cookie = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const favicon = require('serve-favicon')
+const path = require('path')
 
 
 const app = express();
@@ -28,7 +30,7 @@ app.use(session({
 app.use(flash());
 
 app.use(mainRoute);
-
+app.use(favicon(path.join(__dirname, 'public/images/', 'logo.ico')));
 
 app.use((req, res)=>{
     res.render("404", {title: "Page Not Found"});
