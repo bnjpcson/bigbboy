@@ -106,10 +106,10 @@
                                                 <a class="nav-link" href="/admin/products/add-stock/<%= element.prod_id %>">
                                                 <span 
                                                 <% if (element.stocks <= 10) { %>
-                                                    class="bg-danger text-white rounded p-1" 
+                                                    class="bg-danger text-white rounded p-1 fw-bold" 
                                                     data-bs-toggle="tooltip" data-bs-placement="top" title="Product quantity is less than 10."
                                                 <% }else{ %>
-                                                    class="text-success rounded p-1" 
+                                                    class="text-success rounded p-1  fw-bold" 
                                                 <% } %>
                                                 >
                                                 <%= element.stocks %>
@@ -274,7 +274,9 @@
                     <form action="/admin/products/add-stock" method="post">
                         <div class="modal-body">
 
-                            <input type="hidden" name="prod_id" value="<%= selectedQuantity[0].prod_id %>" required>
+                            <input type="hidden" name="prod_id" value="<%= selectedQuantity[0].prod_id %>">
+                            <input type="hidden" name="qty_before" value="<%= selectedQuantity[0].qty %>">
+
 
                             <div class="mb-3">
                                 <label for="" class="form-label">Product Name</label>
@@ -290,7 +292,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Quantity</label>
-                                <input type="number" min="<%= selectedQuantity[0].sold %>" class="form-control" value="<%= selectedQuantity[0].qty %>" name="qty" required>
+                                <input type="number" min="<%= selectedQuantity[0].sold %>" class="form-control" value="<%= selectedQuantity[0].qty %>" name="qty_after" required>
                             </div>
                             
                         </div>

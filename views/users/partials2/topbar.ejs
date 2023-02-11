@@ -19,11 +19,14 @@
 
 
         <!-- Nav Item - Messages -->
-        <li class="nav-item dropdown no-arrow">
-            <a class="mx-3 nav-link" href="/logout">
-                <i class="fa fa-power-off text-danger me-1" aria-hidden="true"></i> Logout
-            </a>
-        </li>
+        
+            
+        
+        <span class=" nav-link mr-2 d-none d-lg-inline text-gray-600">Hello, <%= sessions.username %>!</span>
+        <a class="mx-3 nav-link" href="/logout">
+            <i class="fa fa-power-off text-danger me-1" aria-hidden="true"></i> Logout
+        </a>
+
 
     </ul>
 

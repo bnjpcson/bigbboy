@@ -2,6 +2,15 @@ const ProductPromise = require('../promises/Product.js');
 
 const getHome = async (req, res)=>{
 
+    let sessions = {
+        user_id : req.session.user_id,
+        admin_id : req.session.admin_id,
+        name : req.session.name,
+        username : req.session.username,
+        usertype: req.session.usertype,
+        email : req.session.email,
+    };
+
     const success = req.flash("success");
     const error = req.flash("error");
     let latestProd = [];
@@ -16,11 +25,11 @@ const getHome = async (req, res)=>{
     
 
     if(req.session.usertype == "USER"){
-        res.render("users/index", {title: "Bigbboy", success, error, latestProd});
+        res.render("users/index", {title: "Bigbboy", success, error, latestProd, sessions});
     }else if(req.session.usertype == "ADMIN"){
         res.redirect("admin");
     }else{
-        res.render("index", {title: "Bigbboy", success, error, latestProd});
+        res.render("index", {title: "Bigbboy", success, error, latestProd, sessions});
     }
 
 };

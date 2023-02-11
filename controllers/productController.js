@@ -1,6 +1,8 @@
 const dbcon = require('../db/conn.js');
 const ProductPromise = require('../promises/Product.js');
 const SupplierPromise = require('../promises/Supplier.js');
+const InventoryPromise = require('../promises/Inventory.js');
+
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -47,8 +49,10 @@ const getProducts = async (req, res)=>{
     const success = req.flash("success");
     const error = req.flash("error");
 
+  
     let sessions = {
-        id : req.session.id,
+        user_id : req.session.user_id,
+        admin_id : req.session.admin_id,
         name : req.session.name,
         username : req.session.username,
         usertype: req.session.usertype,
@@ -176,14 +180,19 @@ const postDeleteProduct = async (req, res)=>{
 const postAddStock = async (req, res)=>{
 
     const prod_id = req.body.prod_id;
-    const qty = req.body.qty;
+    const admin_id = req.session.admin_id;
+    const qty_after = req.body.qty_after;
+    const qty_before = req.body.qty_before;
+
 
     try {
-        await ProductPromise.DBupdateQuantity(prod_id, qty);  
+        await InventoryPromise.DBinsertInventoryLog(prod_id, admin_id, qty_before, qty_after);  
+        await ProductPromise.DBupdateQuantity(prod_id, qty_after);  
         req.flash("success", "Product's quantity saved successfully.");
         res.redirect("/admin/products");
     } catch (error) {
-        await req.flash("error", "Failed to edit quantity.");
+        req.flash("error", "Failed to edit quantity.");
+        console.log(error);
         res.redirect("/admin/products");
     }
    

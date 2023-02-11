@@ -42,7 +42,7 @@ const getAdmin = async (req, res)=>{
 
         if(salesReport != ""){
             salesReport.forEach(element => {
-                totalEarnings+=element.totalPrice;
+                totalEarnings+=element.netIncome;
             });
         }
         if(users != ""){

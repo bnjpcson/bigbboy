@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 06:38 PM
+-- Generation Time: Feb 12, 2023 at 12:39 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -203,6 +203,29 @@ INSERT INTO `galleries` (`gallery_id`, `image_title`, `image_path`, `description
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inventory_log`
+--
+
+CREATE TABLE `inventory_log` (
+  `inventory_log_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `qty_before` decimal(18,2) NOT NULL,
+  `qty_after` decimal(18,2) NOT NULL,
+  `date_modified` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory_log`
+--
+
+INSERT INTO `inventory_log` (`inventory_log_id`, `prod_id`, `admin_id`, `qty_before`, `qty_after`, `date_modified`) VALUES
+(4, 11, 4, '30.00', '35.00', '2023-02-12'),
+(5, 10, 4, '20.00', '25.00', '2023-02-12');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messages`
 --
 
@@ -274,7 +297,8 @@ INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
 (11, 5, 'DONE', '2023-02-09'),
 (12, 5, 'DONE', '2023-02-09'),
 (13, 5, 'DONE', '2023-02-09'),
-(14, 4, 'DONE', '2023-02-09');
+(14, 4, 'DONE', '2023-02-09'),
+(15, 5, 'DONE', '2023-02-11');
 
 -- --------------------------------------------------------
 
@@ -303,7 +327,8 @@ INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice
 (11, 11, 'CASH', '150.00', 'Completed', '2023-02-09'),
 (12, 12, 'CASH', '600.00', 'Completed', '2023-02-09'),
 (13, 13, 'GCASH', '250.00', 'Declined', '2023-02-09'),
-(14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09');
+(14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09'),
+(15, 15, 'CASH', '150.00', 'Accepted', '2023-02-11');
 
 -- --------------------------------------------------------
 
@@ -331,8 +356,8 @@ INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `pr
 (6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 20, 2),
 (7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 1),
 (8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 2),
-(10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 20, 1),
-(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 30, 1);
+(10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 25, 1),
+(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 35, 1);
 
 -- --------------------------------------------------------
 
@@ -428,7 +453,8 @@ INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VA
 (24, 13, 11, 1),
 (25, 13, 10, 1),
 (26, 14, 11, 1),
-(27, 14, 10, 1);
+(27, 14, 10, 1),
+(28, 15, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -454,8 +480,28 @@ INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `phonenum`, `passwo
 (5, 'John Doe', 'admin', 'johndoe@example.com', '09123456789', '$2b$10$e6miw6pFTn1KgKmrxoszMe.9h3vxQ9K2jsOSm2jb0l2EDecQxqSeq'),
 (7, 'Tim Mc Key', 'timmckey', 'timmckey@gmail.com', '09123456789', '$2b$10$wTH4Zina4RqydNkOox9JleJM1nFJG.bbYrrvA7bxF2HZfI2UfZtlm'),
 (8, 'Juana Change', 'juana', 'juanachange@yahoo.com', '09123456789', '$2b$10$0q7DjzOLtgq0D7GHOiBDq.wXaVt5YoujEbpwi5hiBdg1XYyyKz4WG'),
-(11, 'Guest', 'Guest', 'guest@example.com', '09123456789', '$2b$10$BQNjap33KrwtFmnfKSVG0..BkrmLwU8MGjmchm5JRSSLV./HB2Spy'),
-(12, 'newuser', 'newuser', 'newuser@example.com', '09123456789', '$2b$10$0p0McGgm7y.Dfo3BfRUB.uwBgV8Ej1inzmu/o9MCkiyElVCXhc9C.');
+(12, 'newuser', 'newuser', 'newuser@example.com', '09123456789', '$2b$10$0p0McGgm7y.Dfo3BfRUB.uwBgV8Ej1inzmu/o9MCkiyElVCXhc9C.'),
+(13, 'WALK-IN', 'WALK-IN', 'walk-in@example.com', '09123456789', '$2b$10$Uss7nlw0VgOPPy8ankoYO.wqgkrpu22DqD1XnHIyViEqHKJS7foNi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlist`
+--
+
+CREATE TABLE `wishlist` (
+  `wishlist_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `wish` varchar(255) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`wishlist_id`, `user_id`, `wish`, `date`) VALUES
+(3, 5, 'gold bolts', '2023-02-12');
 
 --
 -- Indexes for dumped tables
@@ -508,6 +554,14 @@ ALTER TABLE `fbposts`
 --
 ALTER TABLE `galleries`
   ADD PRIMARY KEY (`gallery_id`);
+
+--
+-- Indexes for table `inventory_log`
+--
+ALTER TABLE `inventory_log`
+  ADD PRIMARY KEY (`inventory_log_id`),
+  ADD KEY `prod_id` (`prod_id`),
+  ADD KEY `inventory_log_ibfk_2` (`admin_id`);
 
 --
 -- Indexes for table `messages`
@@ -576,6 +630,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD PRIMARY KEY (`wishlist_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -628,6 +689,12 @@ ALTER TABLE `galleries`
   MODIFY `gallery_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `inventory_log`
+--
+ALTER TABLE `inventory_log`
+  MODIFY `inventory_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
@@ -643,13 +710,13 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `placedorders`
 --
 ALTER TABLE `placedorders`
-  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -679,17 +746,30 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `inventory_log`
+--
+ALTER TABLE `inventory_log`
+  ADD CONSTRAINT `inventory_log_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `products` (`prod_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inventory_log_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -721,6 +801,12 @@ ALTER TABLE `transactions`
 ALTER TABLE `userorders`
   ADD CONSTRAINT `userorders_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `products` (`prod_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `userorders_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
