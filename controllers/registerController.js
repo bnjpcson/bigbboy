@@ -1,6 +1,5 @@
 const dbcon = require('../db/conn.js');
 const bcrypt = require('bcrypt');
-const randtoken = require('rand-token');
 const saltRounds = 10;
 
 const getRegister = (req, res)=>{

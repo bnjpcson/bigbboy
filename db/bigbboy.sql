@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 12:39 AM
+-- Generation Time: Feb 12, 2023 at 01:30 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -221,7 +221,8 @@ CREATE TABLE `inventory_log` (
 
 INSERT INTO `inventory_log` (`inventory_log_id`, `prod_id`, `admin_id`, `qty_before`, `qty_after`, `date_modified`) VALUES
 (4, 11, 4, '30.00', '35.00', '2023-02-12'),
-(5, 10, 4, '20.00', '25.00', '2023-02-12');
+(5, 10, 4, '20.00', '25.00', '2023-02-12'),
+(6, 11, 4, '35.00', '36.00', '2023-02-12');
 
 -- --------------------------------------------------------
 
@@ -328,7 +329,7 @@ INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice
 (12, 12, 'CASH', '600.00', 'Completed', '2023-02-09'),
 (13, 13, 'GCASH', '250.00', 'Declined', '2023-02-09'),
 (14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09'),
-(15, 15, 'CASH', '150.00', 'Accepted', '2023-02-11');
+(15, 15, 'CASH', '150.00', 'Completed', '2023-02-11');
 
 -- --------------------------------------------------------
 
@@ -357,7 +358,7 @@ INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `pr
 (7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 1),
 (8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 2),
 (10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 25, 1),
-(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 35, 1);
+(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 36, 1);
 
 -- --------------------------------------------------------
 
@@ -410,6 +411,7 @@ INSERT INTO `suppliers` (`supplier_id`, `supplier_name`) VALUES
 CREATE TABLE `transactions` (
   `trans_id` int(11) NOT NULL,
   `place_orderid` int(11) NOT NULL,
+  `reference_number` varchar(100) NOT NULL,
   `date_completed` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -417,12 +419,12 @@ CREATE TABLE `transactions` (
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`trans_id`, `place_orderid`, `date_completed`) VALUES
-(1, 8, '2023-02-08'),
-(2, 10, '2023-02-08'),
-(3, 11, '2023-02-09'),
-(4, 12, '2023-02-09'),
-(5, 14, '2023-02-09');
+INSERT INTO `transactions` (`trans_id`, `place_orderid`, `reference_number`, `date_completed`) VALUES
+(1, 8, '', '2023-02-08'),
+(2, 10, '', '2023-02-08'),
+(3, 11, '', '2023-02-09'),
+(4, 12, '', '2023-02-09'),
+(5, 14, '', '2023-02-09');
 
 -- --------------------------------------------------------
 
@@ -481,7 +483,8 @@ INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `phonenum`, `passwo
 (7, 'Tim Mc Key', 'timmckey', 'timmckey@gmail.com', '09123456789', '$2b$10$wTH4Zina4RqydNkOox9JleJM1nFJG.bbYrrvA7bxF2HZfI2UfZtlm'),
 (8, 'Juana Change', 'juana', 'juanachange@yahoo.com', '09123456789', '$2b$10$0q7DjzOLtgq0D7GHOiBDq.wXaVt5YoujEbpwi5hiBdg1XYyyKz4WG'),
 (12, 'newuser', 'newuser', 'newuser@example.com', '09123456789', '$2b$10$0p0McGgm7y.Dfo3BfRUB.uwBgV8Ej1inzmu/o9MCkiyElVCXhc9C.'),
-(13, 'WALK-IN', 'WALK-IN', 'walk-in@example.com', '09123456789', '$2b$10$Uss7nlw0VgOPPy8ankoYO.wqgkrpu22DqD1XnHIyViEqHKJS7foNi');
+(13, 'WALK-IN', 'WALK-IN', 'walk-in@example.com', '09123456789', '$2b$10$Uss7nlw0VgOPPy8ankoYO.wqgkrpu22DqD1XnHIyViEqHKJS7foNi'),
+(14, 'Benjie Pecson', 'benjiepecson', 'pecsonbenjiea@gmail.com', '09123456789', '$2b$10$6FPV76h03yQuFydqr1gp.e7lo9PTQUd20s3t6btJUWocNPA0T2NqS');
 
 -- --------------------------------------------------------
 
@@ -692,7 +695,7 @@ ALTER TABLE `galleries`
 -- AUTO_INCREMENT for table `inventory_log`
 --
 ALTER TABLE `inventory_log`
-  MODIFY `inventory_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `inventory_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -752,7 +755,7 @@ ALTER TABLE `userorders`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `wishlist`

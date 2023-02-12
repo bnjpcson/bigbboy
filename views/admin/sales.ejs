@@ -161,6 +161,7 @@
                                                         <th>Total Price</th>
                                                         <th>Net Income</th>
                                                         <th>Payment Method</th>
+                                                        <th>Reference Number</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -175,6 +176,7 @@
                                                             <td>₱ <%= element.totalPrice.toFixed(2) %></td>
                                                             <td>₱ <%= element.netIncome.toFixed(2) %></td>
                                                             <td><%= element.p_method%></td>
+                                                            <td><%= element.reference_number %></td>
                                                             <td class="">
                                                                 <a class="link-primary nav-link" href="/admin/sales/view/<%= element.order_id%>"><i class="fas fa-eye fa-fw"></i>View</a>
                                                             </td>
@@ -230,6 +232,20 @@
                                 </div>
                                 <div class="col-3">
                                   <span class="fw-bold"><%= salesSummary[0].p_method %></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-2">
+                                  <span>Reference Number: </span>
+                                </div>
+                                <div class="col-3">
+                                    <span class="fw-bold">
+                                        <% if (salesSummary[0].reference_number == "") { %>
+                                         N/A
+                                        <% }else{ %>
+                                            <%= salesSummary[0].reference_number %>
+                                        <% } %>
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">

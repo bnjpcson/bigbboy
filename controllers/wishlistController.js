@@ -21,7 +21,7 @@ const getWishList = async (req, res)=>{
     if(sessions.usertype == "USER"){
         res.render("users/wishlist", {title: "Wishlist", sessions, success, error, data});
     }else if(sessions.usertype == "ADMIN"){
-        res.render("admin/wishlist", {title: "Wishlist | Admin", success, error});
+        res.render("admin/wishlist", {title: "Wishlist | Admin", success, error, sessions, data});
     }else{
         res.redirect("/");
     }

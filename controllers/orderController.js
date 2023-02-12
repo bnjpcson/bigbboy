@@ -1,6 +1,11 @@
 const dbcon = require('../db/conn.js');
 const UserOrderPromise = require('../promises/UserOrder.js');
 const PlaceOrderPromise = require('../promises/PlaceOrder.js');
+const randtoken = require('rand-token').generator({
+    chars: '0-9'
+});
+const saltRounds = 10;
+
 
 
 const getOrder = async (req, res)=>{
@@ -13,7 +18,6 @@ const getOrder = async (req, res)=>{
         email : req.session.email,
     };
 
-   
 
 
     if(sessions.usertype == "USER"){
@@ -62,7 +66,7 @@ const getOrder = async (req, res)=>{
                 return;
             }
             
-            await PlaceOrderPromise.DBsetStatusPlaceOrder("Accepted",placedorder_id);
+            await PlaceOrderPromise.DBsetStatusPlaceOrder("Accepted", placedorder_id);
 
             res.redirect("/admin/orders");
             return;
@@ -73,8 +77,10 @@ const getOrder = async (req, res)=>{
             return;
         }
         if(placedorder_id != "" && op == "complete"){
+            // let ref_number = randtoken.generate(10);
+            let ref_number = "";
             await PlaceOrderPromise.DBsetStatusPlaceOrder("Completed",placedorder_id);
-            await PlaceOrderPromise.DBcompleteOrder(placedorder_id);
+            await PlaceOrderPromise.DBcompleteOrder(placedorder_id, ref_number);
             res.redirect("/admin/orders");
             return;
         }

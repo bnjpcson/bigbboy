@@ -125,6 +125,7 @@ router.post("/admin/add-admin", accountController.postAddAdmin);
 router.get("/admin/profile", profileController.getProfile);
 router.post("/admin/profile", profileController.postSaveAdminProfile);
 
+router.get("/admin/wishlist", wishlistController.getWishList);
 router.get("/admin/inventory-log", inventoryController.getActivityLog);
 
 

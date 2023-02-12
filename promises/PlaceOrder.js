@@ -138,11 +138,11 @@ const DBsoldProduct = async (quantity, prod_id) => {
     });
 }
 
-const DBcompleteOrder = async (place_orderid) => {
+const DBcompleteOrder = async (place_orderid, ref_number) => {
     let date = new Date();
     return new Promise((resolve, reject)=>{
-        let sql = 'INSERT INTO transactions (place_orderid, date_completed) VALUES (?,?)';
-        dbcon.query(sql, [place_orderid, date], (error, elements)=>{
+        let sql = 'INSERT INTO transactions (place_orderid, reference_number, date_completed) VALUES (?,?,?)';
+        dbcon.query(sql, [place_orderid, ref_number, date], (error, elements)=>{
             if(error){
                 return reject(error);
             }
