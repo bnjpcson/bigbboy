@@ -84,6 +84,9 @@ router.get("/admin", adminController.getAdmin);
 
 //orders
 router.get("/admin/orders", orderController.getOrder);
+router.post("/admin/orders/complete", orderController.postOrder);
+
+
 router.get("/admin/orders/:op/:placedorder_id", orderController.getOrder);
 
 

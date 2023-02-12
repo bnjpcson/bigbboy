@@ -76,14 +76,14 @@ const getOrder = async (req, res)=>{
             res.redirect("/admin/orders");
             return;
         }
-        if(placedorder_id != "" && op == "complete"){
-            // let ref_number = randtoken.generate(10);
-            let ref_number = "";
-            await PlaceOrderPromise.DBsetStatusPlaceOrder("Completed",placedorder_id);
-            await PlaceOrderPromise.DBcompleteOrder(placedorder_id, ref_number);
-            res.redirect("/admin/orders");
-            return;
-        }
+        // if(placedorder_id != "" && op == "complete"){
+        //     // let ref_number = randtoken.generate(10);
+        //     let ref_number = "";
+        //     await PlaceOrderPromise.DBsetStatusPlaceOrder("Completed",placedorder_id);
+        //     await PlaceOrderPromise.DBcompleteOrder(placedorder_id, ref_number);
+        //     res.redirect("/admin/orders");
+        //     return;
+        // }
 
         res.render("admin/order", {title: "Orders | Admin", sessions, pendingPlacedOrders, canceledPlacedOrders, acceptedPlacedOrders, declinedPlacedOrders, completedPlacedOrders, viewOrder});
 
@@ -92,8 +92,24 @@ const getOrder = async (req, res)=>{
     }
 };
 
+const postOrder = async (req, res) => {
+
+
+    const placedorder_id = req.body.place_orderid;
+    const ref_number = req.body.ref_number;
+
+    try {
+        await PlaceOrderPromise.DBsetStatusPlaceOrder("Completed",placedorder_id);
+        await PlaceOrderPromise.DBcompleteOrder(placedorder_id, ref_number);
+    } catch (error) {
+        console.log(error);
+    }
+    res.redirect("/admin/orders");
+}
+
 
 
 module.exports = {
-    getOrder
+    getOrder,
+    postOrder
 };

@@ -287,9 +287,7 @@
   
                     <!-- Modal -->
                   <div class="modal fade" 
-                  <% if (viewOrder[0].PO_status != "Pending") { %>
-                    onclick="hideModal()"
-                  <% } %>
+
                   id="viewOrderModal" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                       <div class="modal-content">
@@ -312,10 +310,14 @@
                           </div>
                         <div class="modal-body">
                           <div class="container-fluid">
-                            <div class="row">
-                              <div class="col-12 text-end">
+                            <div class="row mb-3">
+                              <div class="col-12">
                                 <span>Date Ordered: <span><%= viewOrder[0].PO_date.getDate()  + "/" + (viewOrder[0].PO_date.getMonth()+1) + "/" + viewOrder[0].PO_date.getFullYear() %></span></span>
                               </div>
+                              <div class="col-12">
+                                <span>Payment Method: </span><span class="fw-bold"><%= viewOrder[0].p_method%></span>
+                              </div>
+                              
                             </div>
                             <% viewOrder.forEach(element => { %>
                               <div class="row">
@@ -382,10 +384,31 @@
                           </div>
                         <% } %>
                         <% if (viewOrder[0].PO_status == "Accepted") { %>
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-6  pt-3">
+                                <form action="/admin/orders/complete" method="post">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <input type="hidden" value="<%= viewOrder[0].place_orderid%>" name="place_orderid">
+                                      <div class="mb-3">
+                                        <label for="" class="form-label">Reference Number</label>
+                                        <input type="text" class="form-control" name="ref_number">
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                              </div>
+                              <div class="col-6">
+                                
+                              </div>
+                            </div>
+                          </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a class="btn btn-success" href="/admin/orders/complete/<%= viewOrder[0].place_orderid%>"><i class="fas fa-check fa-fw"></i> Complete</a>
+                            <button class="btn btn-success" type="submit"><i class="fas fa-check fa-fw"></i>Complete</button>
                           </div>
+                          </form>
                         <% } %>
                       </div>
                     </div>
