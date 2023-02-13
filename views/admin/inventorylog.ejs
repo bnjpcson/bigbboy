@@ -60,7 +60,7 @@
                                                 <td><%= element.qty_after %></td>
                                                 <td><%= element.username %></td>
                                                 <td>
-                                                    <%= element.date_modified.getDate()  + "/" + (element.date_modified.getMonth()+1) + "/" + element.date_modified.getFullYear() %>
+                                                    <%= element.date_modified.getDate()  + "/" + (element.date_modified.getMonth()+1) + "/" + element.date_modified.getFullYear()  +" "+ element.date_modified.getHours() + ":" + element.date_modified.getMinutes() %>
                                                 </td>
                                             </tr>
                                         <% }) %>

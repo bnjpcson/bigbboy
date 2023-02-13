@@ -55,7 +55,9 @@
                                             <td><%= element.wishlist_id%></td>
                                             <td><%= element.name %></td>
                                             <td><%= element.wish %></td>
-                                            <td> <%= element.date.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date.getFullYear() %></td>
+                                            <td> 
+                                                <%= element.date.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date.getFullYear()  +" "+ element.date.getHours() + ":" + element.date.getMinutes() %>
+                                            </td>
                                         </tr>
                                        <% }) %>
                                     <% } %> 

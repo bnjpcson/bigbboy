@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("./partials/sidebar.ejs") %> 
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <%- include("./partials/topbar.ejs") %> 
+
+                <!-- Begin Page Content -->
+                <div class="container">
+                    <!-- Page Heading -->
+                    <div class="container border-warning border-start border-1 mb-3">
+                        <h1 class="h3">
+                          <% if (userOrders != "") { %>
+                            <%= userOrders[0].name %>
+                            's Cart
+                          <% }else{ %>
+                          User's Cart
+                          <% } %>
+                        </h1>
+                    </div>
+
+                    <div class="container mx-auto">
+                        <div class="row">
+                            <div class="col-md-10 mx-auto">
+                                <div class="card p-3 shadow">
+                                    <div class="card-body mb-4">
+                                      <% if (userOrders!="") { %>
+
+                                        <% userOrders.forEach(element => { %>
+                                          <div class="card p-4">
+                                            <div class="row d-flex justify-content-between align-items-center">
+                                              <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img src="/images/products/<%= element.imgpath %>" class="img-thumbnail" alt="....">
+                                              </div>
+                                              <div class="col-md-3 col-lg-3s">
+                                                <span class="product-title"><%= element.prod_name %> </span>
+                                                <p><span class="text-muted">Pre Order </span></p>
+                                              </div>
+                                              <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
+                                                <h5 class="mb-0">₱ <%= element.prod_srp.toFixed(2) %> </h5>
+                                              </div>
+                                              <div class="col-md-1 col-lg-1 col-xl-1 d-flex text-end">
+                                                x
+                                              </div>
+                                              <div class="col-md-3 col-lg-3 col-xl-2">
+
+                                                  <input onchange="updateQty('<%= element.userOrders_id %>',this.value);" id="<%= element.userOrders_id %>" min="1" name="<%= element.userOrders_id %>" value="<%= element.quantity %>" max="<%= element.qty %>" type="number"
+                                                  class="form-control" />
+                                              </div>
+                                              
+                                              
+                                              <div class="col-md-1 col-lg-1 col-xl-1 d-flex text-end">
+                                                <a href="/admin/delete-item/<%= element.userOrders_id %>/<%= element.user_id %>" class="text-danger"><i class="fa fa-trash" style="font-size: 20px;" aria-hidden="true"></i></a>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                          
+                                        <% }) %>
+                                        <div class="card p-1" style="background-color: gainsboro;">
+                                          <span class="text-end">
+                                              <b> Total: ₱ <span id="totalsum"></span></b>
+                                              <a class="btn btn-warning ml-2" href="/admin/userorders/checkout/<%= userOrders[0].user_id %>">Checkout</a>
+                                              <!-- <button type="button" data-toggle="modal" data-target="#myModal"
+                                              class="btn btn-warning ml-2">Checkout</button></p> -->
+                                          </span>
+                                        </div>
+                                      <% }else{ %>
+                                        <center>
+                                          <img class="w-25 img-fluid" src="/images/icons/emptycart.svg" alt="">
+                                          <p class="pt-5 fw-bold">User's Cart is Empty</p>
+                                        
+                                        </center>
+                                      <% } %>
+                                        
+                                      </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (checkout != "") { %>
+
+                      <script>
+                        $(document).ready(function() {
+                            $("#checkoutModal").modal("show");
+                        });
+                        function hideModal(){
+                          window.location.href = "/admin/userorders/view/<%= checkout[0].user_id %>";
+                        }
+                      </script>
+
+                      <div class="modal fade" id="checkoutModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header" style="background-color: #F67211;">
+                            <h5 class="modal-title w-100 text-center position-absolute"> Checkout</h5>
+                            <button type="button" class="close" onclick="hideModal()" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/admin/userorders/checkout" method="post">
+                            <% checkout.forEach(element => { %>
+                              <div class="card p-4">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                  <div class="col-md-2 col-lg-2 col-xl-3">
+                                    <img src="/images/products/<%= element.imgpath %>" class="img-thumbnail" alt="....">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-xl-7 ">
+                                    <span class="product-title"><%= element.prod_name %></span>
+                                    <p><span class="text-muted">Pre Order </span></p>
+                                    <p><span class="text-muted">₱ <%= element.prod_srp.toFixed(2) %></span></p>
+                                  </div>
+                                  <div class="col-md-1 col-lg-1 col-xl-1 d-flex text-end">
+                                    <span> x<%= element.quantity %> </span>
+                                  </div>
+                                </div>
+                              </div>
+                            <% }) %>
+                          
+                            <div class="col">
+                              <div class="row d-flex justify-content-between align-items-center">
+            
+                                <hr class="page-hr2 mb-2">
+                                <div class="col-md-2 col-lg-2 col-xl-6 text-start">
+                                  <span class="product-title">Order Total (<%= checkout.length %> item/s):</span>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xl-6  text-end">
+                                  <span class="product-price">₱ <span id="totalsum2"></span></span>
+                                </div>
+                                <hr class="page-hr2 mt-2">
+                              </div>
+                              <div class="row">
+                                  <input type="hidden" name="order_id" value="<%= checkout[0].order_id %>">
+                                  <input type="hidden" name="order_total" value="<%= totalSum[0].order_total.toFixed(2) %>">
+
+                                  <div class="col-6 p-3" style="background-color:whitesmoke;">
+                                      <label class="form-label" for="">Payment Method</label>
+                                      <select class="form-select" name="p_method" id="">
+                                          <option value="CASH" selected>Cash</option>
+                                          <option value="GCASH">Gcash</option>
+                                          <option value="CREDIT CARD">Credit Card</option>
+                                      </select>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+            
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideModal()">Close</button>
+                            <button type="submit" class="btn btn-warning">Place Order</button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+                   
+                    
+                     
+
+                  
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+
+            <% if (userOrders != "") { %>
+              <script>
+                function updateQty(userOrders_id, qty){
+                  fetch('/cart/update/'+userOrders_id+"/"+qty, { method: 'PUT', credentials: 'include' })
+                  .then(res => res.json())
+                  .then(jsonRes => {
+                    // get the element with the number of votes
+                    element.innerText = jsonRes.data
+                  });
+  
+                  $.ajax({
+                    type: "GET",
+                    url: "/get-sum/<%= userOrders[0].user_id %>",
+                    data: "data",
+                    success: function (data) {
+                        $("#totalsum").html(data[0].order_total.toFixed(2));
+                        $("#totalsum2").html(data[0].order_total.toFixed(2));
+                        $("#input-sum").val(data[0].order_total.toFixed(2));
+  
+                        
+                    }
+                  });
+                }
+              </script>
+  
+              <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/get-sum/<%= userOrders[0].user_id %>",
+                        data: "data",
+                        success: function (data) {
+                            $("#totalsum").html(data[0].order_total.toFixed(2));
+                            $("#totalsum2").html(data[0].order_total.toFixed(2));
+                            $("#input-sum").val(data[0].order_total.toFixed(2));
+  
+                        }
+                    });
+                });
+              
+              </script>
+            <% } %>
+            
+
+            <!-- End of Main Content -->
+
+            <%- include("./partials/footer.ejs") %> 
+            
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <%- include("./partials/scripts.ejs") %> 
+
+</body>
+
+</html>

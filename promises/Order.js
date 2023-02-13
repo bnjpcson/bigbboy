@@ -12,6 +12,18 @@ const DBgetOrders = async () => {
     });
 }
 
+const DBselectAllOrder = async (user_id) => {
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE status = \'CART\' ';
+        dbcon.query(sql, [user_id], (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
 const DBselectLastOrder = async (user_id) => {
     return new Promise((resolve, reject)=>{
         let sql = 'SELECT * FROM orders WHERE user_id = ? and status = \'CART\' ORDER BY order_id DESC LIMIT 1';
@@ -23,6 +35,8 @@ const DBselectLastOrder = async (user_id) => {
         });
     });
 }
+
+
 
 const DBaddOrder = async (user_id) => {
     let date = new Date();
@@ -52,6 +66,7 @@ const DBupdateDoneOrders = async (order_id) => {
 
 
 module.exports = {
+    DBselectAllOrder,
     DBgetOrders,
     DBselectLastOrder,
     DBaddOrder,

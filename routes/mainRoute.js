@@ -17,6 +17,8 @@ const cartController = require('../controllers/cartController.js');
 const wishlistController = require('../controllers/wishlistController.js');
 const profileController = require('../controllers/profileController.js');
 const inventoryController = require('../controllers/inventoryController.js');
+const userOrdersController = require('../controllers/userOrdersController.js');
+
 
 
 
@@ -130,6 +132,21 @@ router.post("/admin/profile", profileController.postSaveAdminProfile);
 
 router.get("/admin/wishlist", wishlistController.getWishList);
 router.get("/admin/inventory-log", inventoryController.getActivityLog);
+
+router.get("/admin/userorders", userOrdersController.getUserOrders);
+router.get("/get-sum/:user_id", cartController.getUserSum);
+router.get("/admin/userorders/:op/:user_id", cartController.getCart);
+router.get("/admin/delete-item/:userOrders_id/:user_id", cartController.getAdminRemoveOrder);
+router.post("/admin/userorders/checkout", cartController.postAdminPlaceOrder);
+router.get("/get-product-details/:prod_id", productController.getProductDetails);
+
+
+router.post("/admin/userorders/add-order", userOrdersController.postUserOrders);
+
+
+
+
+
 
 
 

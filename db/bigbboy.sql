@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 01:30 PM
+-- Generation Time: Feb 13, 2023 at 11:21 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -212,7 +212,7 @@ CREATE TABLE `inventory_log` (
   `admin_id` int(11) NOT NULL,
   `qty_before` decimal(18,2) NOT NULL,
   `qty_after` decimal(18,2) NOT NULL,
-  `date_modified` date NOT NULL
+  `date_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -220,9 +220,10 @@ CREATE TABLE `inventory_log` (
 --
 
 INSERT INTO `inventory_log` (`inventory_log_id`, `prod_id`, `admin_id`, `qty_before`, `qty_after`, `date_modified`) VALUES
-(4, 11, 4, '30.00', '35.00', '2023-02-12'),
-(5, 10, 4, '20.00', '25.00', '2023-02-12'),
-(6, 11, 4, '35.00', '36.00', '2023-02-12');
+(4, 11, 4, '30.00', '35.00', '2023-02-12 00:00:00'),
+(5, 10, 4, '20.00', '25.00', '2023-02-12 00:00:00'),
+(6, 11, 4, '35.00', '36.00', '2023-02-12 00:00:00'),
+(7, 11, 4, '36.00', '29.00', '2023-02-13 18:15:51');
 
 -- --------------------------------------------------------
 
@@ -283,7 +284,7 @@ CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_id` int(20) NOT NULL,
   `status` varchar(50) NOT NULL,
-  `date` date NOT NULL
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -291,15 +292,24 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `status`, `date`) VALUES
-(7, 5, 'DONE', '2023-02-08'),
-(8, 5, 'DONE', '2023-02-08'),
-(9, 5, 'DONE', '2023-02-08'),
-(10, 5, 'DONE', '2023-02-08'),
-(11, 5, 'DONE', '2023-02-09'),
-(12, 5, 'DONE', '2023-02-09'),
-(13, 5, 'DONE', '2023-02-09'),
-(14, 4, 'DONE', '2023-02-09'),
-(15, 5, 'DONE', '2023-02-11');
+(7, 5, 'DONE', '2023-02-08 00:00:00'),
+(8, 5, 'DONE', '2023-02-08 00:00:00'),
+(9, 5, 'DONE', '2023-02-08 00:00:00'),
+(10, 5, 'DONE', '2023-02-08 00:00:00'),
+(11, 5, 'DONE', '2023-02-09 00:00:00'),
+(12, 5, 'DONE', '2023-02-09 00:00:00'),
+(13, 5, 'DONE', '2023-02-09 00:00:00'),
+(14, 4, 'DONE', '2023-02-09 00:00:00'),
+(15, 5, 'DONE', '2023-02-11 00:00:00'),
+(16, 5, 'DONE', '2023-02-12 00:00:00'),
+(17, 4, 'DONE', '2023-02-12 00:00:00'),
+(18, 4, 'DONE', '2023-02-12 00:00:00'),
+(19, 4, 'DONE', '2023-02-12 00:00:00'),
+(20, 5, 'DONE', '2023-02-13 00:00:00'),
+(21, 4, 'DONE', '2023-02-13 00:00:00'),
+(22, 5, 'DONE', '2023-02-13 00:00:00'),
+(23, 4, 'DONE', '2023-02-13 00:00:00'),
+(24, 5, 'DONE', '2023-02-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -313,7 +323,7 @@ CREATE TABLE `placedorders` (
   `p_method` varchar(100) NOT NULL,
   `totalprice` decimal(18,2) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `date` date NOT NULL
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -321,15 +331,24 @@ CREATE TABLE `placedorders` (
 --
 
 INSERT INTO `placedorders` (`place_orderid`, `order_id`, `p_method`, `totalprice`, `status`, `date`) VALUES
-(7, 7, 'CASH', '500.00', 'Canceled', '2023-02-08'),
-(8, 8, 'CASH', '200.00', 'Completed', '2023-02-08'),
-(9, 9, 'CASH', '200.00', 'Declined', '2023-02-08'),
-(10, 10, 'CASH', '400.00', 'Completed', '2023-02-08'),
-(11, 11, 'CASH', '150.00', 'Completed', '2023-02-09'),
-(12, 12, 'CASH', '600.00', 'Completed', '2023-02-09'),
-(13, 13, 'GCASH', '250.00', 'Declined', '2023-02-09'),
-(14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09'),
-(15, 15, 'CASH', '150.00', 'Completed', '2023-02-11');
+(7, 7, 'CASH', '500.00', 'Canceled', '2023-02-08 00:00:00'),
+(8, 8, 'CASH', '200.00', 'Completed', '2023-02-08 00:00:00'),
+(9, 9, 'CASH', '200.00', 'Declined', '2023-02-08 00:00:00'),
+(10, 10, 'CASH', '400.00', 'Completed', '2023-02-08 00:00:00'),
+(11, 11, 'CASH', '150.00', 'Completed', '2023-02-09 00:00:00'),
+(12, 12, 'CASH', '600.00', 'Completed', '2023-02-09 00:00:00'),
+(13, 13, 'GCASH', '250.00', 'Declined', '2023-02-09 00:00:00'),
+(14, 14, 'GCASH', '250.00', 'Completed', '2023-02-09 00:00:00'),
+(15, 15, 'CASH', '150.00', 'Completed', '2023-02-11 00:00:00'),
+(16, 16, 'CASH', '450.00', 'Completed', '2023-02-12 00:00:00'),
+(17, 17, 'CASH', '300.00', 'Completed', '2023-02-12 00:00:00'),
+(18, 18, 'GCASH', '300.00', 'Completed', '2023-02-12 00:00:00'),
+(19, 19, 'GCASH', '100.00', 'Completed', '2023-02-12 00:00:00'),
+(20, 20, 'CASH', '400.00', 'Declined', '2023-02-13 00:00:00'),
+(21, 21, 'CASH', '150.00', 'Declined', '2023-02-13 00:00:00'),
+(22, 22, 'CASH', '250.00', 'Completed', '2023-02-13 00:00:00'),
+(23, 23, 'CASH', '300.00', 'Completed', '2023-02-13 00:00:00'),
+(24, 24, 'GCASH', '300.00', 'Completed', '2023-02-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -355,10 +374,10 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`prod_id`, `supplier_id`, `prod_name`, `prod_price`, `prod_srp`, `prod_desc`, `imgpath`, `qty`, `sold`) VALUES
 (6, 1, 'Fuel Floater', '115.00', '200.00', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam dolore, eos illum assumenda voluptatum ratione error itaque sit libero autem non labore nostrum in! Architecto velit voluptate delectus repellat tempore?', 'Fuel Floater_1675087091124.webp', 20, 2),
-(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 1),
+(7, 1, 'Air Filter', '95.00', '150.00', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, beatae quae soluta esse, quos, unde hic reiciendis sapiente corporis quis recusandae sit necessitatibus dolore adipisci dolor nihil qui fuga ab.', 'Air Filter_1675087302677.webp', 20, 2),
 (8, 1, 'Spark Plug', '120.00', '200.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora iste minus sequi ab, aperiam aliquam beatae iusto. Quod incidunt fugiat vero est sit voluptatum beatae illo quaerat, soluta quos error?', 'Sparkplug_1675105633907.webp', 20, 2),
 (10, 1, 'Original Honda TMX Clutch Lining', '87.00', '150.00', '(CB100, CG125, CYCLON, JC 125, MAKOTO, TMS125, TMX155, WILCAT, JC1252, 125-4A, SUPERLIGHT 200)', 'clutch_lining_1675860676767.jpg', 25, 1),
-(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 36, 1);
+(11, 2, 'Brake Pads', '40.00', '100.00', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe iste amet quia, quae magnam itaque totam, praesentium quisquam odio, sint aut alias? In, illum optio cumque excepturi ipsam assumenda vel!', 'Brake Pads_1675863889525.webp', 29, 4);
 
 -- --------------------------------------------------------
 
@@ -424,7 +443,14 @@ INSERT INTO `transactions` (`trans_id`, `place_orderid`, `reference_number`, `da
 (2, 10, '', '2023-02-08'),
 (3, 11, '', '2023-02-09'),
 (4, 12, '', '2023-02-09'),
-(5, 14, '', '2023-02-09');
+(5, 14, '', '2023-02-09'),
+(6, 16, '12345', '2023-02-12'),
+(7, 17, '', '2023-02-12'),
+(8, 18, '123456789', '2023-02-12'),
+(9, 19, '12345123123', '2023-02-12'),
+(10, 23, '12345123123', '2023-02-13'),
+(11, 22, '12345', '2023-02-13'),
+(12, 24, '', '2023-02-13');
 
 -- --------------------------------------------------------
 
@@ -456,7 +482,17 @@ INSERT INTO `userorders` (`userOrders_id`, `order_id`, `prod_id`, `quantity`) VA
 (25, 13, 10, 1),
 (26, 14, 11, 1),
 (27, 14, 10, 1),
-(28, 15, 7, 1);
+(28, 15, 7, 1),
+(29, 16, 10, 3),
+(30, 17, 11, 3),
+(31, 18, 7, 2),
+(32, 19, 11, 1),
+(33, 20, 8, 2),
+(36, 21, 7, 1),
+(37, 22, 11, 1),
+(38, 22, 10, 1),
+(39, 23, 11, 3),
+(40, 24, 11, 3);
 
 -- --------------------------------------------------------
 
@@ -496,7 +532,7 @@ CREATE TABLE `wishlist` (
   `wishlist_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `wish` varchar(255) NOT NULL,
-  `date` date NOT NULL
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -504,7 +540,8 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`wishlist_id`, `user_id`, `wish`, `date`) VALUES
-(3, 5, 'gold bolts', '2023-02-12');
+(3, 5, 'gold bolts', '2023-02-12 00:00:00'),
+(4, 4, 'tire', '2023-02-12 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -695,7 +732,7 @@ ALTER TABLE `galleries`
 -- AUTO_INCREMENT for table `inventory_log`
 --
 ALTER TABLE `inventory_log`
-  MODIFY `inventory_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `inventory_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -713,13 +750,13 @@ ALTER TABLE `mvision`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `placedorders`
 --
 ALTER TABLE `placedorders`
-  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `place_orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -743,13 +780,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `userorders`
 --
 ALTER TABLE `userorders`
-  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `userOrders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -761,7 +798,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

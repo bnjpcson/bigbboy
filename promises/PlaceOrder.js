@@ -127,8 +127,9 @@ const DBsetStatusPlaceOrder = async (status, place_orderid) => {
 }
 
 const DBsoldProduct = async (quantity, prod_id) => {
+
     return new Promise((resolve, reject)=>{
-        let sql = 'UPDATE products SET sold = ? WHERE prod_id = ?';
+        let sql = 'UPDATE products SET sold = (sold + ?) WHERE prod_id = ?';
         dbcon.query(sql, [quantity, prod_id], (error, elements)=>{
             if(error){
                 return reject(error);

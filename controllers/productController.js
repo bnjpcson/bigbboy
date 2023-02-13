@@ -199,6 +199,15 @@ const postAddStock = async (req, res)=>{
     
 };
 
+const getProductDetails = async (req, res)=>{
+
+    let prod_id = req.params.prod_id;
+    let products = await await ProductPromise.DBselectProduct(prod_id);
+    
+    res.json(products);
+    res.end();
+};
+
 
 module.exports = {
     getProducts,
@@ -206,5 +215,6 @@ module.exports = {
     postAddProduct,
     postEditProduct,
     postDeleteProduct,
-    postAddStock
+    postAddStock,
+    getProductDetails
 };

@@ -171,7 +171,9 @@
                                                         <tr>
                                                             <td><%= element.place_orderid%></td>
                                                             <td><%= element.name%></td> 
-                                                            <td><%= element.date_completed.getDate()  + "/" + (element.date_completed.getMonth()+1) + "/" + element.date_completed.getFullYear() %></td>
+                                                            <td>
+                                                                <%= element.date_completed.getDate()  + "/" + (element.date.getMonth()+1) + "/" + element.date_completed.getFullYear()  +" "+ element.date_completed.getHours() + ":" + element.date_completed.getMinutes() %>
+                                                            </td>
                                                             <td>₱ <%= element.purchasePrice.toFixed(2) %></td>
                                                             <td>₱ <%= element.totalPrice.toFixed(2) %></td>
                                                             <td>₱ <%= element.netIncome.toFixed(2) %></td>
